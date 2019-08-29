@@ -1,4 +1,5 @@
-﻿using Rakuten.Test.Core.Business;
+﻿using log4net.Config;
+using Rakuten.Test.Core.Business;
 using Rakuten.Test.WebService.Enum;
 using Rakuten.Test.WebService.Model;
 using System;
@@ -22,11 +23,13 @@ namespace Rakuten.Test.WebService
 
         private readonly UserBO _userBO;
         private readonly AddressBO _addressBO;
+        public readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(User));
 
         public User()
         {
             _userBO = new UserBO();
             _addressBO = new AddressBO();
+            XmlConfigurator.Configure();
         }
 
         [WebMethod(Description = "Retorna um determinado usuário da loja")]
@@ -45,7 +48,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Retorna a listagem de todos os usuários existentes na loja")]
@@ -66,7 +68,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Insere um usuário na loja")]
@@ -92,7 +93,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Modifica um usuário da loja")]
@@ -101,7 +101,7 @@ namespace Rakuten.Test.WebService
             ServiceResult<Core.Model.User> result = new ServiceResult<Core.Model.User>();
 
             try
-            {                
+            {
                 var address = user.Addresses.FirstOrDefault();
 
                 _userBO.Update(user);
@@ -116,7 +116,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Remove um usuário da loja")]
@@ -136,7 +135,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Verifica se o email existe na base da loja")]
@@ -153,32 +151,48 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
-
             return result;
-
         }
 
         [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
         public ServiceResult<ServiceResponse> DocumentExists(string documentId)
         {
             ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
-            
+
             try
             {
                 result.Data = new ServiceResponse();
-                result.Data.Status = _userBO.Exists(null, documentId.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+                result.Data.Status = _userBO.Exists(null, documentId.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;                
             }
             catch (Exception ex)
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
+            }
+            return result;
+        }
+
+        [WebMethod(Description = "Verifica se o RG existe na base da loja")]
+        public ServiceResult<ServiceResponse> RgExists(string rg)
+        {
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
+
+            try
+            {
+                result.Data = new ServiceResponse();
+                result.Data.Status = _userBO.Exists(null, null, rg) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
 
             return result;
-
         }
-
-
     }
 }

@@ -1,4 +1,12 @@
 ﻿
+create database db_rakuten
+go
+
+use db_rakuten
+
+go
+
+
 /****** Object:  Table [dbo].[Address]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -52,7 +60,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -83,6 +91,7 @@ CREATE TABLE [dbo].[User](
 	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
+	[Rg] [varchar](12) NOT NULL
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -130,7 +139,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +178,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -191,6 +200,7 @@ CREATE PROCEDURE [dbo].[AddUser]
 	,@DocumentId varchar(30)
 	,@Email varchar(150)
 	,@Password varchar(50)
+	,@Rg varchar(12)
 AS
 BEGIN
 
@@ -203,7 +213,8 @@ BEGIN
 			,[Password]
 			,[Integrated]
 			,DateCreation
-			,DateModified)
+			,DateModified
+			,Rg)
 			VALUES		
 				(@FirstName
 				,@LastName
@@ -213,7 +224,8 @@ BEGIN
 				,@Password
 				,0
 				,GETDATE()
-				,GETDATE())
+				,GETDATE()
+				,@Rg)
 
 	SELECT SCOPE_IDENTITY() AS 'Id'
 
@@ -264,13 +276,14 @@ GO
 CREATE PROCEDURE [dbo].[GetUsers]	
 	@Id int = 0,
 	@Email varchar(150) = NULL,
-	@DocumentId varchar(30) = NULL
+	@DocumentId varchar(30) = NULL,
+	@Rg varchar(12) = NULL
 AS
 BEGIN
 
 	SELECT * 
 		FROM [User] 
-		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email)
+		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email) AND (@Rg IS NULL OR Rg = @Rg)
 
 	IF @Id > 0
 	BEGIN
@@ -316,7 +329,7 @@ BEGIN
 			,Cellphone = @Cellphone
 			,DateModified = GETDATE()
 		WHERE
-			Id = @Id
+			UserId = @UserId
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -363,3 +376,20 @@ BEGIN
 	DELETE FROM [User] WHERE Id = @Id 			
 
 END
+
+/****** Object:  StoredProcedure [dbo].[ChangeOrderStatus ]    Script Date: 29/08/2019 07:20:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ChangeOrderStatus ]	
+	@Id int = 0,
+	@CurrentStatus int 
+AS
+BEGIN
+	UPDATE [Order]
+	SET CurrentStatus = @CurrentStatus
+	WHERE Id = @Id
+END
+
+GO

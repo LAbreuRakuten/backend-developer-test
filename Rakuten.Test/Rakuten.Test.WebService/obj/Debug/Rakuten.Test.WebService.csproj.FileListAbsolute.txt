@@ -27,3 +27,15 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\bin\Ra
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll.config
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.pdb
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\log4net.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.pdb
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\log4net.xml
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojAssemblyReference.cache
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CoreCompileInputs.cache
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CopyComplete
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb

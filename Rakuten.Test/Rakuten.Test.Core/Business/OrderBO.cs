@@ -96,9 +96,42 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
+        public bool ChangeOrderStatus(int id, int currentStatus)
+        {
+            bool _result = false;
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "ChangeOrderStatus";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@CurrentStatus", currentStatus);
+
+                    _result = cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
         private Order BindDataReader(SqlDataReader dr)
         {
-            return new Order { 
+            return new Order
+            {
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 Address = dr["Address"].ToString(),

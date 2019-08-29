@@ -25,3 +25,11 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Ne
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.pdb
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csproj.CoreCompileInputs.cache
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csproj.CopyComplete
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
+C:\Users\Leandro\Desktop\Git\Teste_Rakuten\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb

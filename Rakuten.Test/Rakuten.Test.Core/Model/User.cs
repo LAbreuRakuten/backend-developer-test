@@ -36,6 +36,8 @@ namespace Rakuten.Test.Core.Model
 
         public DateTime DateModified { get; set; }
 
+        public string Rg { get; set; }
+
         public List<AddressData> Addresses { get; set; }
 
     }

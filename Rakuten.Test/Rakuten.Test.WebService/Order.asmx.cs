@@ -1,11 +1,10 @@
-﻿using Rakuten.Test.WebService.Model;
+﻿using Rakuten.Test.Core.Business;
+using Rakuten.Test.WebService.Enum;
+using Rakuten.Test.WebService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Services;
-using Rakuten.Test.Core.Model;
-using Rakuten.Test.Core.Business;
 
 namespace Rakuten.Test.WebService
 {
@@ -43,7 +42,6 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
-
         }
 
         [WebMethod(Description = "Retorna a listagem de todos os pedidos realizados na loja")]
@@ -64,7 +62,43 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
+        }
 
+        [WebMethod(Description = "Retorna um determinado pedido que não estão marcados como integrados")]
+        public ServiceResult<List<Core.Model.Order>> GetNewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            try
+            {
+                result.Data = _orderBO.GetAll().Where(x => x.Integrated == false).ToList();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+        [WebMethod(Description = "Alteração do status do pedido")]
+        public ServiceResult<ServiceResponse> ChangeOrderStatus(int id, int currentStatus)
+        {
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
+
+            try
+            {
+                result.Data = new ServiceResponse();
+                result.Data.Status = (_orderBO.ChangeOrderStatus(id, currentStatus)) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
         }
     }
 }
