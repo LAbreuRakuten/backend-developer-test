@@ -128,7 +128,7 @@
                     $(this).parents('div.form-group').removeClass('has-error');
 
                     if ($(this).is('input')) {
-                        debugger
+                        
                         if ($(this).val().trim().length == 0) {
                             isValid = false;
                             $(this).parents('div.form-group').addClass('has-error');
@@ -193,7 +193,7 @@
             });
 
             $('#<%=this.Rg.ClientID%>').on('change', function (e) {
-                debugger
+                
                 var root = this;
 
                 $.ajax({
@@ -214,7 +214,7 @@
             });
 
             $('#<%=this.DocumentId.ClientID%>').on('change', function (e) {
-                debugger
+                
                 var root = this;
 
                 $.ajax({
