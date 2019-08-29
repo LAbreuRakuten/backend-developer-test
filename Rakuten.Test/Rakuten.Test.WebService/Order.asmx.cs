@@ -66,5 +66,45 @@ namespace Rakuten.Test.WebService
             return result;
 
         }
+
+        [WebMethod(Description = "Retorna a listagem dos novos pedidos realizados na loja")]
+        public ServiceResult<List<Core.Model.Order>> GetNewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            result.Data = new List<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.GetNewer();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
+
+        [WebMethod(Description = "Retorna um determinado pedido da loja")]
+        public ServiceResult<Core.Model.Order> ChangeOrderStatus(int id, int status)
+        {
+            ServiceResult<Core.Model.Order> result = new ServiceResult<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.ChangeStatus(id, status);
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
     }
 }

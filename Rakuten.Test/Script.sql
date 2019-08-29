@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -130,7 +130,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +169,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -350,6 +350,8 @@ BEGIN
 
 END
 
+GO
+
 /****** Object:  StoredProcedure [dbo].[DelteUser]    Script Date: 04/01/2016 23:47:00 ******/
 SET ANSI_NULLS ON
 GO
@@ -361,5 +363,134 @@ AS
 BEGIN
 
 	DELETE FROM [User] WHERE Id = @Id 			
+
+END
+
+GO
+
+/****** Object:  Add Column on Table [dbo].[User]     Script Date: 29/08/2019 09:30:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER TABLE [dbo].[User]
+ADD [RG] [varchar](20) NULL -- Nullable caso já existam registros no banco
+
+GO
+/****** Object:  Index [IX_User_2]    Script Date: 29/08/2019 09:30:00 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_User_2] ON [dbo].[User]
+(
+	[RG] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Alter StoredProcedure [dbo].[AddUser]    Script Date: 29/08/2019 09:30:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[AddUser]	
+	@FirstName varchar(100)
+	,@LastName varchar(150)
+	,@Gender int
+	,@DocumentId varchar(30)
+	,@RG varchar(20)
+	,@Email varchar(150)
+	,@Password varchar(50)
+AS
+BEGIN
+
+	INSERT INTO [User]	
+			(FirstName
+			,LastName
+			,Gender
+			,DocumentId
+            ,RG
+			,Email
+			,[Password]
+			,[Integrated]
+			,DateCreation
+			,DateModified)
+			VALUES		
+				(@FirstName
+				,@LastName
+				,@Gender
+				,@DocumentId
+                ,@RG
+				,@Email
+				,@Password
+				,0
+				,GETDATE()
+				,GETDATE())
+
+	SELECT SCOPE_IDENTITY() AS 'Id'
+
+END
+
+GO
+/****** Object:  Alter StoredProcedure [dbo].[GetUsers]    Script Date: 29/08/2019 09:30:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetUsers]	
+	@Id int = 0,
+	@Email varchar(150) = NULL,
+	@DocumentId varchar(30) = NULL,
+	@RG varchar(20) = NULL
+AS
+BEGIN
+
+	SELECT * 
+		FROM [User] 
+		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@RG IS NULL OR RG = @RG) AND (@Email IS NULL OR Email = @Email)
+
+	IF @Id > 0
+	BEGIN
+		SELECT * 
+			FROM [Address] 
+			WHERE UserId = @Id	
+	END
+
+END
+
+GO
+/****** Object:  Alter StoredProcedure [dbo].[GetOrders]    Script Date: 29/08/2019 09:30:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetOrders]	
+	@Id int = 0,
+    @Integrated bit = null
+AS
+BEGIN
+
+	SELECT * 
+		FROM [Order] 
+		WHERE (@Id = 0 OR Id = @Id) AND (@Integrated IS NULL OR [Integrated] = @Integrated)
+
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[ChangeOrderStatus]    Script Date: 29/08/2019 09:30:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ChangeOrderStatus]	
+	@Id int = 0,
+	@Status int = 0
+AS
+BEGIN
+
+    UPDATE [Order]
+       SET CurrentStatus = @Status
+     WHERE Id = @Id
+
+	SELECT * 
+		FROM [Order] 
+		WHERE Id = @Id
 
 END

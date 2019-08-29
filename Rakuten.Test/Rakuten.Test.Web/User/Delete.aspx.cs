@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls;
+using Rakuten.Test.Web.Log;
 
 namespace Rakuten.Test.Web.User
 {
@@ -42,6 +43,7 @@ namespace Rakuten.Test.Web.User
                     else
                     {
                         this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.DeleteUserResult.ErrorMessage + "</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
+                        FileLog.Log("[Delete] Ocorreu o seguinte problema na operação: " + _response.Body.DeleteUserResult.ErrorMessage);
                     }
                 }
                 else
@@ -52,8 +54,9 @@ namespace Rakuten.Test.Web.User
             catch(Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
+                FileLog.Log("[Delete] Ocorreu o seguinte problema na operação: " + ex.Message);
             }
-            
+
         }
     }
 }

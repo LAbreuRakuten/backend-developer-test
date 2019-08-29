@@ -30,6 +30,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:GenderType" />
           <s:element minOccurs="0" maxOccurs="1" name="DocumentId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RG" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Integrated" type="s:boolean" />
@@ -182,6 +183,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RGExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RGExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RGExistsResult" type="tns:ServiceResultOfServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetUserSoapIn">
@@ -226,6 +241,12 @@
   <wsdl:message name="DocumentExistsSoapOut">
     <wsdl:part name="parameters" element="tns:DocumentExistsResponse" />
   </wsdl:message>
+  <wsdl:message name="RGExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:RGExists" />
+  </wsdl:message>
+  <wsdl:message name="RGExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:RGExistsResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserSoap">
     <wsdl:operation name="GetUser">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um determinado usuário da loja</wsdl:documentation>
@@ -261,6 +282,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica se o CPF existe na base da loja</wsdl:documentation>
       <wsdl:input message="tns:DocumentExistsSoapIn" />
       <wsdl:output message="tns:DocumentExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica se o RG existe na base da loja</wsdl:documentation>
+      <wsdl:input message="tns:RGExistsSoapIn" />
+      <wsdl:output message="tns:RGExistsSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UserSoap" type="tns:UserSoap">
@@ -328,6 +354,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <soap:operation soapAction="http://tempuri.org/RGExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UserSoap12" type="tns:UserSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -387,6 +422,15 @@
     </wsdl:operation>
     <wsdl:operation name="DocumentExists">
       <soap12:operation soapAction="http://tempuri.org/DocumentExists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <soap12:operation soapAction="http://tempuri.org/RGExists" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

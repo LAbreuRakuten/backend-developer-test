@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rakuten.Test.Web.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,7 @@ namespace Rakuten.Test.Web.User
 
         public Index()
         {
-            
+            _userService = new UserService.UserSoapClient();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +31,8 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Listar Usuários</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
-            }            
+                FileLog.Log("[Index] Ocorreu o seguinte problema na operação: " + ex.Message);
+            }
         }
     }
 }

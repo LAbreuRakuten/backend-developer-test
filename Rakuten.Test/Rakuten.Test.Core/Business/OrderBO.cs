@@ -58,6 +58,44 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
+        public List<Order> GetNewer()
+        {
+            List<Order> _result = new List<Order>();
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "GetOrders";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Integrated", true);
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _result.Add(BindDataReader(dr));
+                    }
+
+                    dr.Close();
+                    dr.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
         public Order GetById(int id)
         {
             Order _result = null;
@@ -95,6 +133,46 @@ namespace Rakuten.Test.Core.Business
 
             return _result;
         }
+
+        public Order ChangeStatus(int id, int status)
+        {
+            Order _result = null;
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "ChangeOrderStatus";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@Status", status);
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _result = BindDataReader(dr);
+                    }
+
+                    dr.Close();
+                    dr.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
 
         private Order BindDataReader(SqlDataReader dr)
         {

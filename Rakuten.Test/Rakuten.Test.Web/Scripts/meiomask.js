@@ -164,6 +164,9 @@
                 'cpf': {
                     mask: '999.999.999-99'
                 }, // cadastro nacional de pessoa fisica (kind of a brazillian ssn)
+                'rg': {
+                    mask: '99.999.999-9'
+                },
                 'cnpj': {
                     mask: '99.999.999/9999-99'
                 },

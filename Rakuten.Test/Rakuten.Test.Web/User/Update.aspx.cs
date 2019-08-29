@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls;
+using Rakuten.Test.Web.Log;
 
 namespace Rakuten.Test.Web.User
 {
@@ -51,6 +52,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.RG.InnerText = _user.RG;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;
@@ -70,6 +72,7 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                FileLog.Log("Ocorreu o seguinte problema na operação: " + ex.Message);
             }
         }
 
@@ -113,12 +116,14 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.UpdateUserResult.ErrorMessage + "</div>";
+                    FileLog.Log("[Update] Ocorreu o seguinte problema na operação: " + _response.Body.UpdateUserResult.ErrorMessage);
                 }
 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                FileLog.Log("[Update] Ocorreu o seguinte problema na operação: " + ex.Message);
             }
         }
     }

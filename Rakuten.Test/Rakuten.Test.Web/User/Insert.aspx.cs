@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rakuten.Test.Web.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,6 +35,7 @@ namespace Rakuten.Test.Web.User
                         user = new UserService.User
                         {
                             DocumentId = this.DocumentId.Value,
+                            RG = this.RG.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
@@ -63,12 +65,14 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.AddUserResult.ErrorMessage + "</div>";
+                    FileLog.Log("[Insert] Ocorreu o seguinte problema na operação: " + _response.Body.AddUserResult.ErrorMessage);
                 }
                 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                FileLog.Log("[Insert] Ocorreu o seguinte problema na operação: " + ex.Message);
             }
 
         }

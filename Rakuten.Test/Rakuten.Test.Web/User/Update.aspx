@@ -28,6 +28,10 @@
         <p class="form-control-static" id="DocumentId" runat="server"></p>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label">RG</label>
+        <p class="form-control-static" id="RG" runat="server"></p>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label">Email</label>
         <p class="form-control-static" id="Email" runat="server"></p>
     </div>
