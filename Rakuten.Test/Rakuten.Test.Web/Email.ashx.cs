@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Rakuten.Test.Web
     /// </summary>
     public class Email : IHttpHandler
     {
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private UserService.UserSoap _userService;
 
         public Email()
@@ -29,11 +30,18 @@ namespace Rakuten.Test.Web
             {
                 var _exists = _userService.EmailExists(new UserService.EmailExistsRequest { Body = new UserService.EmailExistsRequestBody { email = context.Request["email"] } });
                 result = _exists.Body.EmailExistsResult.Data.Status == UserService.ServiceResponseStatus.Yes;
+
+                if(result)
+                {
+                    Log.Warn("E-mail já existe na base");
+                }
             }
             catch
             {
+               
                 result = false;
             }
+            
 
             context.Response.Write(JsonConvert.SerializeObject(new { status = result }));
         }

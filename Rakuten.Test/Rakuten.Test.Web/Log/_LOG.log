@@ -1,0 +1,3 @@
+INFO  2019-09-24 11:26:10,148 19736ms Delete                 Page_Load          - Dados removidos com sucesso!
+WARN  2019-09-24 11:27:08,607 78195ms Email                  ProcessRequest     - E-mail já existe na base
+INFO  2019-09-24 11:28:42,822 172410ms Insert                 InsertButton_Click - Dados inseridos com sucesso!

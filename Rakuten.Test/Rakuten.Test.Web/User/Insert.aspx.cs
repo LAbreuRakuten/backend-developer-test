@@ -1,6 +1,8 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,6 +11,7 @@ namespace Rakuten.Test.Web.User
 {
     public partial class Insert : System.Web.UI.Page
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly UserService.UserSoap _userService;
 
@@ -19,11 +22,11 @@ namespace Rakuten.Test.Web.User
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void InsertButton_Click(object sender, EventArgs e)
         {
+            
 
             try
             {
@@ -38,6 +41,7 @@ namespace Rakuten.Test.Web.User
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
                             Password = this.Password.Value,
+                            RG = this.RG.Value,
                             Gender = this.Male.Checked ? (UserService.GenderType)Convert.ToInt32(this.Male.Value) : (UserService.GenderType)Convert.ToUInt32(this.Female.Value),
                             Addresses = new UserService.AddressData[1] { 
                                 new UserService.AddressData { 
@@ -58,20 +62,24 @@ namespace Rakuten.Test.Web.User
 
                 if (!_response.Body.AddUserResult.HasError)
                 {
+                    Log.Info("Dados inseridos com sucesso!");
                     this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Dados inseridos com sucesso!</div>";
                 }
                 else
                 {
+                    Log.Error(_response.Body.AddUserResult.ErrorMessage);
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.AddUserResult.ErrorMessage + "</div>";
                 }
                 
             }
             catch (Exception ex)
             {
+                Log.Error(this.MessageStatus.Text);
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
             }
 
         }
-    
+
+
     }
 }

@@ -124,6 +124,9 @@ namespace Rakuten.Test.Web.UserService {
         private System.DateTime DateModifiedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RGField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Rakuten.Test.Web.UserService.AddressData[] AddressesField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -267,6 +270,19 @@ namespace Rakuten.Test.Web.UserService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=10)]
+        public string RG {
+            get {
+                return this.RGField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RGField, value) != true)) {
+                    this.RGField = value;
+                    this.RaisePropertyChanged("RG");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
         public Rakuten.Test.Web.UserService.AddressData[] Addresses {
             get {
                 return this.AddressesField;
@@ -796,6 +812,13 @@ namespace Rakuten.Test.Web.UserService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EmailExists", ReplyAction="*")]
         System.Threading.Tasks.Task<Rakuten.Test.Web.UserService.EmailExistsResponse> EmailExistsAsync(Rakuten.Test.Web.UserService.EmailExistsRequest request);
         
+        // CODEGEN: Generating message contract since element name RG from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RGExists", ReplyAction="*")]
+        Rakuten.Test.Web.UserService.RGExistsResponse RGExists(Rakuten.Test.Web.UserService.RGExistsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RGExists", ReplyAction="*")]
+        System.Threading.Tasks.Task<Rakuten.Test.Web.UserService.RGExistsResponse> RGExistsAsync(Rakuten.Test.Web.UserService.RGExistsRequest request);
+        
         // CODEGEN: Generating message contract since element name documentId from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DocumentExists", ReplyAction="*")]
         Rakuten.Test.Web.UserService.DocumentExistsResponse DocumentExists(Rakuten.Test.Web.UserService.DocumentExistsRequest request);
@@ -1209,6 +1232,74 @@ namespace Rakuten.Test.Web.UserService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RGExistsRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RGExists", Namespace="http://tempuri.org/", Order=0)]
+        public Rakuten.Test.Web.UserService.RGExistsRequestBody Body;
+        
+        public RGExistsRequest() {
+        }
+        
+        public RGExistsRequest(Rakuten.Test.Web.UserService.RGExistsRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RGExistsRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string RG;
+        
+        public RGExistsRequestBody() {
+        }
+        
+        public RGExistsRequestBody(string RG) {
+            this.RG = RG;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RGExistsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RGExistsResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Rakuten.Test.Web.UserService.RGExistsResponseBody Body;
+        
+        public RGExistsResponse() {
+        }
+        
+        public RGExistsResponse(Rakuten.Test.Web.UserService.RGExistsResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RGExistsResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Rakuten.Test.Web.UserService.ServiceResultOfServiceResponse RGExistsResult;
+        
+        public RGExistsResponseBody() {
+        }
+        
+        public RGExistsResponseBody(Rakuten.Test.Web.UserService.ServiceResultOfServiceResponse RGExistsResult) {
+            this.RGExistsResult = RGExistsResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class DocumentExistsRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="DocumentExists", Namespace="http://tempuri.org/", Order=0)]
@@ -1446,6 +1537,31 @@ namespace Rakuten.Test.Web.UserService {
             inValue.Body = new Rakuten.Test.Web.UserService.EmailExistsRequestBody();
             inValue.Body.email = email;
             return ((Rakuten.Test.Web.UserService.UserSoap)(this)).EmailExistsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Rakuten.Test.Web.UserService.RGExistsResponse Rakuten.Test.Web.UserService.UserSoap.RGExists(Rakuten.Test.Web.UserService.RGExistsRequest request) {
+            return base.Channel.RGExists(request);
+        }
+        
+        public Rakuten.Test.Web.UserService.ServiceResultOfServiceResponse RGExists(string RG) {
+            Rakuten.Test.Web.UserService.RGExistsRequest inValue = new Rakuten.Test.Web.UserService.RGExistsRequest();
+            inValue.Body = new Rakuten.Test.Web.UserService.RGExistsRequestBody();
+            inValue.Body.RG = RG;
+            Rakuten.Test.Web.UserService.RGExistsResponse retVal = ((Rakuten.Test.Web.UserService.UserSoap)(this)).RGExists(inValue);
+            return retVal.Body.RGExistsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Rakuten.Test.Web.UserService.RGExistsResponse> Rakuten.Test.Web.UserService.UserSoap.RGExistsAsync(Rakuten.Test.Web.UserService.RGExistsRequest request) {
+            return base.Channel.RGExistsAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Rakuten.Test.Web.UserService.RGExistsResponse> RGExistsAsync(string RG) {
+            Rakuten.Test.Web.UserService.RGExistsRequest inValue = new Rakuten.Test.Web.UserService.RGExistsRequest();
+            inValue.Body = new Rakuten.Test.Web.UserService.RGExistsRequestBody();
+            inValue.Body.RG = RG;
+            return ((Rakuten.Test.Web.UserService.UserSoap)(this)).RGExistsAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

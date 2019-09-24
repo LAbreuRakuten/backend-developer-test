@@ -24,6 +24,10 @@
         <label for="<%=this.DocumentId.ClientID %>">CPF</label>
         <input type="text" class="form-control" id="DocumentId" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" />
     </div>
+     <div class="form-group">
+        <label for="<%=this.DocumentId.ClientID %>">RG</label>
+        <input type="text" class="form-control" id="RG" runat="server" placeholder="RG" data-required="true" />
+    </div>
     <div class="form-group">
         <label for="<%=this.Email.ClientID %>">Email</label>
         <input type="email" class="form-control" id="Email" runat="server" placeholder="Email" data-required="true" />
@@ -104,7 +108,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FooterContent" runat="server">
     <script type="text/javascript">
         
-        var _emailExists = false;
+        var _emailExists,_RGExists,_CPFExists = false;
 
         $(function () {
 
@@ -140,6 +144,16 @@
                     isValid = false;
                     $('#<%=this.Email.ClientID%>').parents('div.form-group').addClass('has-error');
                 }
+
+                if (_RGExists) {
+                    isValid = false;
+                    $('#<%=this.RG.ClientID%>').parents('div.form-group').addClass('has-error');
+                }
+
+                if (_CPFExists) {
+                    isValid = false;
+                    $('#<%=this.DocumentId.ClientID%>').parents('div.form-group').addClass('has-error');
+                }
                 
                 if (isValid) {
                     __doPostBack('ctl00$MainContent$InsertButton', '');
@@ -169,6 +183,49 @@
                     }
                 });
             });
+
+            $('#<%=this.RG.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/RG.ashx") %>',
+                    method: 'POST',
+                    data: { RG: $(root).val() },
+                    success: function (data) {
+
+                        _RGExists = data.status;
+
+                        if (_RGExists) {
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+            });
+
+            $('#<%=this.DocumentId.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/CPF.ashx") %>',
+                    method: 'POST',
+                    data: { documentId: $(root).val() },
+                    success: function (data) {
+
+                        _CPFExists = data.status;
+
+                        if (_CPFExists) {
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+            });
+            
 
             $('input[data-mask]').each(function () {
                 var input = $(this);

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
 using Microsoft.AspNet.FriendlyUrls;
 
 namespace Rakuten.Test.Web.User
 {
     public partial class Update : System.Web.UI.Page
     {
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserService.UserSoap _userService;
         public UserService.User _user = new UserService.User();
 
@@ -69,6 +70,7 @@ namespace Rakuten.Test.Web.User
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message);
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
             }
         }
@@ -108,16 +110,19 @@ namespace Rakuten.Test.Web.User
 
                 if (!_response.Body.UpdateUserResult.HasError)
                 {
+                    Log.Info("Dados modificados com sucesso!");
                     this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Dados modificados com sucesso!</div>";
                 }
                 else
                 {
+                    Log.Error(_response.Body.UpdateUserResult.ErrorMessage);
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.UpdateUserResult.ErrorMessage + "</div>";
                 }
 
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message);
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
             }
         }

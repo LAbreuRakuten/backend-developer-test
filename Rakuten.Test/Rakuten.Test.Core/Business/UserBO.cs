@@ -59,7 +59,7 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
-        public User GetById(int id)
+        public User GetById(int id, string email = null, string documentId = null)
         {
             User _result = null;
 
@@ -73,6 +73,8 @@ namespace Rakuten.Test.Core.Business
                     cmd.CommandText = "GetUsers";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@DocumentId", documentId);
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -104,7 +106,7 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
-        public bool Exists(string email = null, string documentId = null)
+        public bool Exists(string email = null, string documentId = null,string RG = null)
         {
             bool _result = false;
 
@@ -120,6 +122,7 @@ namespace Rakuten.Test.Core.Business
 
                     if (!string.IsNullOrEmpty(email)) cmd.Parameters.AddWithValue("@Email", email);
                     else if (!string.IsNullOrEmpty(documentId)) cmd.Parameters.AddWithValue("@DocumentId", documentId);
+                    else if (!string.IsNullOrEmpty(RG)) cmd.Parameters.AddWithValue("@RG", RG);
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -150,7 +153,8 @@ namespace Rakuten.Test.Core.Business
                 _connection.Open();
 
                 using (SqlCommand cmd = new SqlCommand())
-                {                    
+                {
+                    cmd.Connection = _connection;
                     cmd.CommandText = "AddUser";
                     cmd.CommandType = CommandType.StoredProcedure;
                     
@@ -160,6 +164,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
+                    cmd.Parameters.AddWithValue("@RG",model.RG);
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -200,6 +205,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.CommandText = "UpdateUser";
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
@@ -261,7 +267,8 @@ namespace Rakuten.Test.Core.Business
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),
                 Id = Convert.ToInt32(dr["Id"].ToString()),
                 Integrated = Convert.ToBoolean(dr["Integrated"].ToString()),
-                LastName = dr["LastName"].ToString()
+                LastName = dr["LastName"].ToString(),
+                RG = dr["RG"].ToString()
             };
         }
 

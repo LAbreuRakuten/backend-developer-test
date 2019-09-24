@@ -159,15 +159,15 @@ namespace Rakuten.Test.WebService
 
         }
 
-        [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
-        public ServiceResult<ServiceResponse> DocumentExists(string documentId)
+        [WebMethod(Description = "Verifica se o RG existe na base da loja")]
+        public ServiceResult<ServiceResponse> RGExists(string RG)
         {
             ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
-            
+
             try
             {
                 result.Data = new ServiceResponse();
-                result.Data.Status = _userBO.Exists(null, documentId.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+                result.Data.Status = _userBO.Exists(null,null,RG.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
             }
             catch (Exception ex)
             {
@@ -176,7 +176,25 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
+        }
 
+        [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
+        public ServiceResult<ServiceResponse> DocumentExists(string documentId)
+        {
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
+            
+            try
+            {
+                result.Data = new ServiceResponse();
+                result.Data.Status = _userBO.Exists(null, documentId.Trim(),null) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
         }
 
 

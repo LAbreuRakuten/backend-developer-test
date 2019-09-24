@@ -35,6 +35,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Integrated" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCreation" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="DateModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="RG" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfAddressData" />
         </s:sequence>
       </s:complexType>
@@ -168,6 +169,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RGExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RGExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RGExistsResult" type="tns:ServiceResultOfServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="DocumentExists">
         <s:complexType>
           <s:sequence>
@@ -220,6 +235,12 @@
   <wsdl:message name="EmailExistsSoapOut">
     <wsdl:part name="parameters" element="tns:EmailExistsResponse" />
   </wsdl:message>
+  <wsdl:message name="RGExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:RGExists" />
+  </wsdl:message>
+  <wsdl:message name="RGExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:RGExistsResponse" />
+  </wsdl:message>
   <wsdl:message name="DocumentExistsSoapIn">
     <wsdl:part name="parameters" element="tns:DocumentExists" />
   </wsdl:message>
@@ -256,6 +277,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica se o email existe na base da loja</wsdl:documentation>
       <wsdl:input message="tns:EmailExistsSoapIn" />
       <wsdl:output message="tns:EmailExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica se o RG existe na base da loja</wsdl:documentation>
+      <wsdl:input message="tns:RGExistsSoapIn" />
+      <wsdl:output message="tns:RGExistsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DocumentExists">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica se o CPF existe na base da loja</wsdl:documentation>
@@ -312,6 +338,15 @@
     </wsdl:operation>
     <wsdl:operation name="EmailExists">
       <soap:operation soapAction="http://tempuri.org/EmailExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <soap:operation soapAction="http://tempuri.org/RGExists" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -378,6 +413,15 @@
     </wsdl:operation>
     <wsdl:operation name="EmailExists">
       <soap12:operation soapAction="http://tempuri.org/EmailExists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RGExists">
+      <soap12:operation soapAction="http://tempuri.org/RGExists" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -150,7 +150,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.CommandText = "UpdateAddress";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@Id", model.UserId);
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@UserId", model.UserId);
                     cmd.Parameters.AddWithValue("@Type", (int)model.Type);
                     cmd.Parameters.AddWithValue("@ZipCode", model.ZipCode);

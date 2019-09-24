@@ -21,6 +21,75 @@ namespace Rakuten.Test.Core.Business
             _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString);
         }
 
+        public bool UpdateOrder(Order model)
+        {
+            bool _result = false;
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "UpdateOrder";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@CurrentStatus", model.CurrentStatus);
+
+                    _result = cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
+        public List<Order> GetNewOrders()
+        {
+            List<Order> _result = new List<Order>();
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "GetNewOrders";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _result.Add(BindDataReader(dr));
+                    }
+
+                    dr.Close();
+                    dr.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
         public List<Order> GetAll()
         {
             List<Order> _result = new List<Order>();

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
 using Microsoft.AspNet.FriendlyUrls;
 
 namespace Rakuten.Test.Web.User
 {
     public partial class Delete : System.Web.UI.Page
     {
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserService.UserSoap _userService;
 
         public Delete()
@@ -37,10 +38,12 @@ namespace Rakuten.Test.Web.User
 
                     if (_response.Body.DeleteUserResult.Data.Status == UserService.ServiceResponseStatus.Yes)
                     {
+                        Log.Info("Dados removidos com sucesso!");
                         this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Dados removidos com sucesso!</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
                     }
                     else
                     {
+                        Log.Error(_response.Body.DeleteUserResult.ErrorMessage);
                         this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.DeleteUserResult.ErrorMessage + "</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
                     }
                 }
@@ -51,6 +54,7 @@ namespace Rakuten.Test.Web.User
             }
             catch(Exception ex)
             {
+                Log.Error(ex.Message);
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
             }
             
