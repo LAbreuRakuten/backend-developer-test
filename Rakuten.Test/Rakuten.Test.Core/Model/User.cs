@@ -10,7 +10,6 @@ namespace Rakuten.Test.Core.Model
     [Serializable()]
     public class User
     {
-
         public User()
         {
             this.Addresses = new List<AddressData>();
@@ -37,6 +36,14 @@ namespace Rakuten.Test.Core.Model
         public DateTime DateModified { get; set; }
 
         public List<AddressData> Addresses { get; set; }
+
+        //string, pois o RG pode começar com zero;
+        public string RG { get; set; }
+
+      public User(int Id)
+        {
+
+        }       
 
     }
 }

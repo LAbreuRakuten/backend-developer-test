@@ -25,3 +25,10 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Ne
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.dll
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.pdb
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csprojResolveAssemblyReference.cache
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
+C:\Users\812717\Downloads\backend-developer-test-master\backend-developer-test-master\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb

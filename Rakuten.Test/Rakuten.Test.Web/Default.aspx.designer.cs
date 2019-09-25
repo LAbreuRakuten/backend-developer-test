@@ -9,8 +9,6 @@
 
 namespace Rakuten.Test.Web
 {
-
-
     public partial class Default
     {
     }

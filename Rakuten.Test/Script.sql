@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[RG] [varchar](15) NOT NULL,
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -130,7 +131,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +170,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -189,6 +190,7 @@ CREATE PROCEDURE [dbo].[AddUser]
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@RG varchar(15)
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
@@ -199,6 +201,7 @@ BEGIN
 			,LastName
 			,Gender
 			,DocumentId
+			,RG
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,6 +212,7 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@RG
 				,@Email
 				,@Password
 				,0
@@ -256,6 +260,51 @@ BEGIN
 END
 
 GO
+/****** Object:  StoredProcedure [dbo].[GetNewOrders]    Script Date: 25/09/2019 22:19:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetNewOrders]	
+	@Integrated int = 0
+AS
+BEGIN
+
+	SELECT * 
+		FROM [Order] 
+		WHERE @Integrated  = 0
+
+END
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetNewOrders]    Script Date: 25/09/2019 22:19:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ChangeOrderStatus]	
+	@Id int
+   ,@Status int
+AS
+BEGIN
+
+	UPDATE [Order] 
+		SET
+			[CurrentStatus] = @Status
+		WHERE
+			Id = @Id
+
+	UPDATE [User] 
+		SET [Integrated] = 0 
+		WHERE Id = @UserId
+
+END
+
+
+GO
+
 /****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO

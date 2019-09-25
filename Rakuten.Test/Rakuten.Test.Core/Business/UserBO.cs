@@ -158,6 +158,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
+                    cmd.Parameters.AddWithValue("@RG", model.RG);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
 
@@ -256,6 +257,7 @@ namespace Rakuten.Test.Core.Business
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 DocumentId = dr["DocumentId"].ToString(),
+                RG = dr["RG"].ToString(),
                 Email = dr["Email"].ToString(),
                 FirstName = dr["FirstName"].ToString(),
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),

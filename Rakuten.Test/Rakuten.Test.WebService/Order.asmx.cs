@@ -66,5 +66,45 @@ namespace Rakuten.Test.WebService
             return result;
 
         }
+
+        [WebMethod(Description = "Retorna a apenas os pedidos que não estão marcados com integrados.(Orders com o campo Integrated = 0)")]
+        public ServiceResult<List<Core.Model.Order>> GetNewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+            
+            result.Data = new List<Core.Model.Order>();
+            
+            try
+            {
+                result.Data = _orderBO.GetNewOrders();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+            
+            return result;
+        }
+
+        [WebMethod(Description = "Altera o status do pedido")]
+        public ServiceResult<List<Core.Model.Order>> ChangeOrderStatus()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+            
+            result.Data = new List<Core.Model.Order>();
+            
+            try
+            {
+                result.Data = _orderBO.ChangeOrderStatus();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+            
+            return result;
+        }
     }
 }

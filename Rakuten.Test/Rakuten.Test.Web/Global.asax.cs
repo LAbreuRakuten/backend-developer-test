@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 
+
 namespace Rakuten.Test.Web
 {
     public class Global : HttpApplication

@@ -21,8 +21,12 @@
         </label>
     </div>
     <div class="form-group">
-        <label for="<%=this.DocumentId.ClientID %>">CPF</label>
-        <input type="text" class="form-control" id="DocumentId" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" />
+        <label for="<%=this.Rg.ClientID %>">CPF</label>
+        <input type="text" class="form-control" id="Rg" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" />
+    </div>
+    <div class="form-group">
+        <label for="<%=this.RG.ClientID %>">RG</label>
+        <input type="text" class="form-control" id="RG" runat="server" placeholder="RG" data-required="true" data-mask="RG" />
     </div>
     <div class="form-group">
         <label for="<%=this.Email.ClientID %>">Email</label>

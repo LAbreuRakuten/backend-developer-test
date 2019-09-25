@@ -4,7 +4,7 @@ using Rakuten.Test.WebService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using log4net;
 using System.Web.Services;
 
 namespace Rakuten.Test.WebService
@@ -159,15 +159,22 @@ namespace Rakuten.Test.WebService
 
         }
 
+        //Instance for log4net
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
-        public ServiceResult<ServiceResponse> DocumentExists(string documentId)
+        public ServiceResult<ServiceResponse> DocumentExists(string documentId, string rg)
         {
-            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
-            
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();          
+
+
             try
             {
                 result.Data = new ServiceResponse();
                 result.Data.Status = _userBO.Exists(null, documentId.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+                Log.Debug("Document Id Error" + documentId);
+                result.Data.Status = _userBO.Exists(null, rg.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+                Log.Debug("RG Error" + rg);
             }
             catch (Exception ex)
             {
