@@ -110,7 +110,10 @@ namespace Rakuten.Test.Web.UserService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DocumentIdField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DocumentId2Field;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
         
@@ -200,7 +203,25 @@ namespace Rakuten.Test.Web.UserService {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 4)]
+        public string DocumentId2
+        {
+            get
+            {
+                return this.DocumentId2Field;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.DocumentId2Field, value) != true))
+                {
+                    this.DocumentId2Field = value;
+                    this.RaisePropertyChanged("DocumentId2");
+                }
+            }
+        }
+
+
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
         public string Email {
             get {

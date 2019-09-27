@@ -150,7 +150,8 @@ namespace Rakuten.Test.Core.Business
                 _connection.Open();
 
                 using (SqlCommand cmd = new SqlCommand())
-                {                    
+                {
+                    cmd.Connection = _connection;
                     cmd.CommandText = "AddUser";
                     cmd.CommandType = CommandType.StoredProcedure;
                     
@@ -158,6 +159,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
+                    cmd.Parameters.AddWithValue("@DocumentId2", model.DocumentId2);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
 
@@ -200,6 +202,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.CommandText = "UpdateUser";
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
@@ -256,6 +259,7 @@ namespace Rakuten.Test.Core.Business
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 DocumentId = dr["DocumentId"].ToString(),
+                DocumentId2 = dr["DocumentId2"].ToString(),
                 Email = dr["Email"].ToString(),
                 FirstName = dr["FirstName"].ToString(),
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),

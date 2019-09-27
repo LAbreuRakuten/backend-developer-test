@@ -51,6 +51,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.DocumentId2.InnerText = _user.DocumentId2;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;
@@ -113,12 +114,15 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.UpdateUserResult.ErrorMessage + "</div>";
+                    Global.log.Error(_response.Body.UpdateUserResult.ErrorMessage);
                 }
 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                Global.log.Error(ex.Message);
             }
         }
     }

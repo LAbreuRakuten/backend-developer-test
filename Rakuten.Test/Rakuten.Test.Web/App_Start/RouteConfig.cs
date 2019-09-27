@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Routing;
 using Microsoft.AspNet.FriendlyUrls;
-
+using System.Web.Routing;
 
 namespace Rakuten.Test.Web
 {
@@ -14,6 +10,7 @@ namespace Rakuten.Test.Web
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
             routes.EnableFriendlyUrls(settings);
+
         }
     }
 }

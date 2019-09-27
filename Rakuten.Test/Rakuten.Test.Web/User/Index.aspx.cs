@@ -12,9 +12,10 @@ namespace Rakuten.Test.Web.User
 
         private readonly UserService.UserSoap _userService;
 
+
         public Index()
         {
-            
+            _userService = new UserService.UserSoapClient();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,6 +31,8 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Listar Usuários</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                Global.log.Error(ex.Message);
             }            
         }
     }

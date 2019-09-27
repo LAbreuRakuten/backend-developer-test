@@ -28,6 +28,10 @@
         <p class="form-control-static" id="DocumentId" runat="server"></p>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label">RG</label>
+        <p class="form-control-static" id="DocumentId2" runat="server"></p>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label">Email</label>
         <p class="form-control-static" id="Email" runat="server"></p>
     </div>
@@ -123,7 +127,7 @@
                 });
 
                 if (isValid) {
-                    __doPostBack('ctl00$MainContent$UpdateButton', '')_;
+                    __doPostBack('ctl00$MainContent$UpdateButton', '');
                 }
 
                 return false;

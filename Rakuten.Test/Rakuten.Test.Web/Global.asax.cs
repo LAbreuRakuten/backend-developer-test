@@ -11,6 +11,8 @@ namespace Rakuten.Test.Web
 {
     public class Global : HttpApplication
     {
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup

@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[DocumentId2] [varchar](30) NOT NULL,
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -101,6 +102,11 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_User] ON [dbo].[User]
 	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_User_2] ON [dbo].[User]
+(
+	[DocumentId2] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
 SET ANSI_PADDING ON
 
 GO
@@ -130,7 +136,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +175,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -184,11 +190,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[AddUser]	
+CREATE OR ALTER PROCEDURE [dbo].[AddUser]	
 	@FirstName varchar(100)
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@DocumentId2 varchar(30)
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
@@ -199,6 +206,7 @@ BEGIN
 			,LastName
 			,Gender
 			,DocumentId
+			,DocumentId2
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,6 +217,7 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@DocumentId2
 				,@Email
 				,@Password
 				,0

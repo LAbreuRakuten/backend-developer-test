@@ -69,6 +69,7 @@ namespace Rakuten.Test.WebService
 
         }
 
+
         [WebMethod(Description = "Insere um usuário na loja")]
         public ServiceResult<Core.Model.User> AddUser(Core.Model.User user)
         {

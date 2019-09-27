@@ -34,6 +34,7 @@ namespace Rakuten.Test.Web.User
                         user = new UserService.User
                         {
                             DocumentId = this.DocumentId.Value,
+                            DocumentId2 = this.DocumentId2.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
@@ -63,12 +64,15 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.AddUserResult.ErrorMessage + "</div>";
+                    Global.log.Error(_response.Body.AddUserResult.ErrorMessage);
                 }
                 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                Global.log.Error(ex.Message);
             }
 
         }
