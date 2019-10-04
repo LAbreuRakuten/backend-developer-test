@@ -25,6 +25,10 @@
         <input type="text" class="form-control" id="DocumentId" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" />
     </div>
     <div class="form-group">
+        <label for="<%=this.DocumentRg.ClientID %>">RG</label>
+        <input type="text" class="form-control" id="DocumentRg" runat="server" placeholder="RG" data-required="true" data-mask="rg" />
+    </div>
+    <div class="form-group">
         <label for="<%=this.Email.ClientID %>">Email</label>
         <input type="email" class="form-control" id="Email" runat="server" placeholder="Email" data-required="true" />
     </div>
@@ -105,6 +109,7 @@
     <script type="text/javascript">
         
         var _emailExists = false;
+        var _rgcpfExists = false;
 
         $(function () {
 
@@ -140,6 +145,11 @@
                     isValid = false;
                     $('#<%=this.Email.ClientID%>').parents('div.form-group').addClass('has-error');
                 }
+
+                if (_rgcpfExists) {
+                    isValid = false;
+                    $('#<%=this.DocumentRg.ClientID%>').parents('div.form-group').addClass('has-error');
+                }
                 
                 if (isValid) {
                     __doPostBack('ctl00$MainContent$InsertButton', '');
@@ -162,6 +172,27 @@
                         _emailExists = data.status;
 
                         if (_emailExists) {
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+            });
+
+            $('#<%=this.DocumentRg.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/RgCpf.ashx") %>',
+                    method: 'POST',
+                    data: { documentRg: $(root).val() },
+                    success: function (data) {
+
+                        _rgcpfExists = data.status;
+
+                        if (_rgcpfExists) {
                             $(root).parents('div.form-group').addClass('has-error');
                         } else {
                             $(root).parents('div.form-group').removeClass('has-error');

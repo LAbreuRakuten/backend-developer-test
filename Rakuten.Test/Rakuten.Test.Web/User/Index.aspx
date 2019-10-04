@@ -13,6 +13,7 @@
                         <th>Nome</th>
                         <th>Sobrenome</th>
                         <th>CPF</th>
+                        <th>RG</th>
                         <th>Email</th>
                         <th>Ações</th>
                     </tr>
@@ -23,6 +24,7 @@
                 <td><%#DataBinder.Eval(Container.DataItem, "FirstName") %></td>
                 <td><%#DataBinder.Eval(Container.DataItem, "LastName") %></td>
                 <td><%#DataBinder.Eval(Container.DataItem, "DocumentId") %></td>
+                <td><%#DataBinder.Eval(Container.DataItem, "DocumentRg") %></td>
                 <td><%#DataBinder.Eval(Container.DataItem, "Email") %></td>
                 <td><a href="<%=ResolveUrl("~/User/Update/") %><%#DataBinder.Eval(Container.DataItem, "Id") %>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editar</a>&nbsp;
                     <a href="javascript:Delete(<%#DataBinder.Eval(Container.DataItem, "Id") %>);" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Remover</a></td>

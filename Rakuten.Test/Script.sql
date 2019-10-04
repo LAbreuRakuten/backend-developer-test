@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[DocumentRg] [varchar](30) NOT NULL,
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -130,7 +131,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +170,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -189,6 +190,7 @@ CREATE PROCEDURE [dbo].[AddUser]
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@DocumentRg varchar(30)
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
@@ -199,6 +201,7 @@ BEGIN
 			,LastName
 			,Gender
 			,DocumentId
+			,DocumentRg
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,6 +212,7 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@DocumentRg
 				,@Email
 				,@Password
 				,0
@@ -256,6 +260,43 @@ BEGIN
 END
 
 GO
+/****** Object:  StoredProcedure [dbo].[GetNewOrders]    Script Date: 03/10/2019 16:45:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetNewOrders]	
+
+AS
+BEGIN
+
+	SELECT * 
+		FROM [Order] 
+		WHERE (Integrated = 0)
+
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[ChangeOrderStatus]    Script Date: 03/10/2019 17:10:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ChangeOrderStatus]	
+	@Id int,
+	@NewStatus int
+AS
+BEGIN
+
+	UPDATE [Order]
+	   SET 
+	       CurrentStatus = @NewStatus
+     WHERE 
+	       Id = @Id
+
+END
+
+GO
 /****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -264,13 +305,15 @@ GO
 CREATE PROCEDURE [dbo].[GetUsers]	
 	@Id int = 0,
 	@Email varchar(150) = NULL,
-	@DocumentId varchar(30) = NULL
+	@DocumentId varchar(30) = NULL,
+	@DocumentRg varchar(30) = NULL
+
 AS
 BEGIN
 
 	SELECT * 
 		FROM [User] 
-		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email)
+		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@DocumentRg IS NULL OR DocumentRg = @DocumentRg) AND (@Email IS NULL OR Email = @Email)
 
 	IF @Id > 0
 	BEGIN

@@ -30,6 +30,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:GenderType" />
           <s:element minOccurs="0" maxOccurs="1" name="DocumentId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentRg" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Integrated" type="s:boolean" />
@@ -182,6 +183,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DocumentRgExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentRg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DocumentRgExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentRgExistsResult" type="tns:ServiceResultOfServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>      
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetUserSoapIn">

@@ -1,9 +1,11 @@
-﻿using Rakuten.Test.Core.Business;
+﻿using log4net;
+using Rakuten.Test.Core.Business;
 using Rakuten.Test.WebService.Enum;
 using Rakuten.Test.WebService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Services;
 
@@ -22,6 +24,7 @@ namespace Rakuten.Test.WebService
 
         private readonly UserBO _userBO;
         private readonly AddressBO _addressBO;
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public User()
         {
@@ -42,6 +45,8 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método GetUser(Id: " + id.ToString() + "): " + ex.Message);
             }
 
             return result;
@@ -58,11 +63,14 @@ namespace Rakuten.Test.WebService
             try
             {
                 result.Data = _userBO.GetAll();
+                
             }
             catch (Exception ex)
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método GetAll(): " + ex.Message);
             }
 
             return result;
@@ -89,6 +97,8 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método AddUser(): " + ex.Message);
             }
 
             return result;
@@ -113,6 +123,8 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método UpdateUser(): " + ex.Message);
             }
 
             return result;
@@ -133,6 +145,8 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método DeleteUser(Id: "+ id.ToString() +"): " + ex.Message);
             }
 
             return result;
@@ -153,6 +167,8 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método EmailExists(email: " + email + "): " + ex.Message);
             }
 
             return result;
@@ -173,12 +189,34 @@ namespace Rakuten.Test.WebService
             {
                 result.HasError = true;
                 result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método DocumentExists(email: " + documentId + "): " + ex.Message);
             }
 
             return result;
 
         }
 
+        [WebMethod(Description = "Verifica se o RG existe na base da loja")]
+        public ServiceResult<ServiceResponse> DocumentRgExists(string documentRg)
+        {
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
 
+            try
+            {
+                result.Data = new ServiceResponse();
+                result.Data.Status = _userBO.Exists(null, null, documentRg.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+
+                log.Error("Erro no método DocumentRgExists(email: " + documentRg + "): " + ex.Message);
+            }
+
+            return result;
+
+        }
     }
 }

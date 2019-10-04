@@ -58,6 +58,75 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
+        public List<Order> GetNew()
+        {
+            List<Order> _result = new List<Order>();
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "GetNewOrders";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _result.Add(BindDataReader(dr));
+                    }
+
+                    dr.Close();
+                    dr.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
+        public bool ChangeStatus(int id, int status)
+        {
+            bool _result = false;
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "ChangeOrderStatus";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@NewStatus", status);
+
+                    _result = cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
         public Order GetById(int id)
         {
             Order _result = null;

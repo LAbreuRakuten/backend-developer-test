@@ -67,6 +67,15 @@ namespace Rakuten.Test.Web.User {
         protected global::System.Web.UI.HtmlControls.HtmlInputText DocumentId;
         
         /// <summary>
+        /// DocumentRg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DocumentRg;
+        
+        /// <summary>
         /// Email control.
         /// </summary>
         /// <remarks>

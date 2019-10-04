@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
 using Microsoft.AspNet.FriendlyUrls;
 
 namespace Rakuten.Test.Web.User
@@ -12,6 +14,7 @@ namespace Rakuten.Test.Web.User
     {
 
         private readonly UserService.UserSoap _userService;
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public Delete()
         {
@@ -52,6 +55,8 @@ namespace Rakuten.Test.Web.User
             catch(Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <p><strong>Remover Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</p><p><a href=\"" + ResolveUrl("~/User/Index") + "\" class=\"btn btn-default\">Ok</a></p></div>";
+
+                log.Error("Ocorreu o seguinte problema na operação: " + ex.Message);
             }
             
         }

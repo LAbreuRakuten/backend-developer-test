@@ -1,6 +1,8 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +13,7 @@ namespace Rakuten.Test.Web.User
     {
 
         private readonly UserService.UserSoap _userService;
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public Insert()
 	    {
@@ -34,6 +37,7 @@ namespace Rakuten.Test.Web.User
                         user = new UserService.User
                         {
                             DocumentId = this.DocumentId.Value,
+                            DocumentRg = this.DocumentRg.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
@@ -69,6 +73,8 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                log.Error("Ocorreu o seguinte problema na operação: " + ex.Message);
             }
 
         }

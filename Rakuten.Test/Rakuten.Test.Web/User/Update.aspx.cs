@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
 using Microsoft.AspNet.FriendlyUrls;
 
 namespace Rakuten.Test.Web.User
@@ -13,6 +15,7 @@ namespace Rakuten.Test.Web.User
 
         private readonly UserService.UserSoap _userService;
         public UserService.User _user = new UserService.User();
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public Update()
         {
@@ -51,6 +54,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.DocumentRg.InnerText = _user.DocumentRg;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;
@@ -70,6 +74,8 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                log.Error("Ocorreu o seguinte problema na operação: " + ex.Message);
             }
         }
 
@@ -119,6 +125,8 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+
+                log.Error("Ocorreu o seguinte problema na operação: " + ex.Message);
             }
         }
     }

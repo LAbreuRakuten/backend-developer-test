@@ -104,7 +104,7 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
-        public bool Exists(string email = null, string documentId = null)
+        public bool Exists(string email = null, string documentId = null, string documentRg = null)
         {
             bool _result = false;
 
@@ -120,6 +120,7 @@ namespace Rakuten.Test.Core.Business
 
                     if (!string.IsNullOrEmpty(email)) cmd.Parameters.AddWithValue("@Email", email);
                     else if (!string.IsNullOrEmpty(documentId)) cmd.Parameters.AddWithValue("@DocumentId", documentId);
+                    else if (!string.IsNullOrEmpty(documentRg)) cmd.Parameters.AddWithValue("@DocumentRg", documentRg);
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -158,6 +159,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
+                    cmd.Parameters.AddWithValue("@DocumentRg", model.DocumentRg);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
 
@@ -256,6 +258,7 @@ namespace Rakuten.Test.Core.Business
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 DocumentId = dr["DocumentId"].ToString(),
+                DocumentRg = dr["DocumentRg"].ToString(),
                 Email = dr["Email"].ToString(),
                 FirstName = dr["FirstName"].ToString(),
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),
