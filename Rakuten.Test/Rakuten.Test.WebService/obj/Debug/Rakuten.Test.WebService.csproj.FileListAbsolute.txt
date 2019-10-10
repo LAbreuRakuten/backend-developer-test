@@ -27,3 +27,13 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\bin\Ra
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll.config
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojAssemblyReference.cache
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CoreCompileInputs.cache
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CopyComplete
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb

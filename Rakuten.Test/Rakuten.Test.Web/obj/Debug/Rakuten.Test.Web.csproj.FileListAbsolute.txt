@@ -43,3 +43,27 @@ D:\BKP\Meus Documentos\ProvaPleno\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakute
 D:\BKP\Meus Documentos\ProvaPleno\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.dll
 D:\BKP\Meus Documentos\ProvaPleno\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.pdb
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.csprojResolveAssemblyReference.cache
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.csproj.CoreCompileInputs.cache
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Rakuten.Test.Web.dll.config
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Rakuten.Test.Web.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Rakuten.Test.Web.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Antlr3.Runtime.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\AspNet.ScriptManager.bootstrap.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\AspNet.ScriptManager.jQuery.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.AspNet.FriendlyUrls.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.ScriptManager.MSAjax.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.ScriptManager.WebForms.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.Web.Infrastructure.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Newtonsoft.Json.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\System.Web.Optimization.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\WebGrease.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Newtonsoft.Json.xml
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\System.Web.Optimization.xml
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Antlr3.Runtime.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\Microsoft.AspNet.FriendlyUrls.xml
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.csproj.CopyComplete
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\obj\Debug\Rakuten.Test.Web.pdb
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\log4net.dll
+D:\RepositorioGit\Rakuten.Test\Rakuten.Test.Web\bin\log4net.xml

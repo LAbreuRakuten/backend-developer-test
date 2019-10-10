@@ -9,7 +9,7 @@ namespace Rakuten.Test.Web.User
 {
     public partial class Insert : System.Web.UI.Page
     {
-
+        private log4net.ILog logger = log4net.LogManager.GetLogger("LogFile");
         private readonly UserService.UserSoap _userService;
 
         public Insert()
@@ -34,6 +34,7 @@ namespace Rakuten.Test.Web.User
                         user = new UserService.User
                         {
                             DocumentId = this.DocumentId.Value,
+                            Rg = this.Rg.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
@@ -55,7 +56,7 @@ namespace Rakuten.Test.Web.User
                         }
                     }
                 });
-
+                
                 if (!_response.Body.AddUserResult.HasError)
                 {
                     this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Dados inseridos com sucesso!</div>";
@@ -63,12 +64,15 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.AddUserResult.ErrorMessage + "</div>";
+                    logger.Warn(_response.Body.AddUserResult.ErrorMessage);
                 }
                 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                logger.Error(ex.Message);
+
             }
 
         }

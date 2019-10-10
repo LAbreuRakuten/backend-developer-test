@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[Rg] [varchar](30) NOT NULL,
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -110,6 +111,11 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_User_1] ON [dbo].[User]
 	[DocumentId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_User_2] ON [dbo].[User]
+(
+	[Rg] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
 ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 ON UPDATE CASCADE
@@ -130,7 +136,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +175,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -189,6 +195,7 @@ CREATE PROCEDURE [dbo].[AddUser]
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@Rg varchar(30)
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
@@ -199,6 +206,7 @@ BEGIN
 			,LastName
 			,Gender
 			,DocumentId
+			,Rg
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,6 +217,7 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@Rg
 				,@Email
 				,@Password
 				,0
@@ -264,13 +273,14 @@ GO
 CREATE PROCEDURE [dbo].[GetUsers]	
 	@Id int = 0,
 	@Email varchar(150) = NULL,
-	@DocumentId varchar(30) = NULL
+	@DocumentId varchar(30) = NULL,
+	@Rg varchar(30) = NULL
 AS
 BEGIN
 
 	SELECT * 
 		FROM [User] 
-		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email)
+		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Rg IS NULL OR Rg = @Rg) AND (@Email IS NULL OR Email = @Email)
 
 	IF @Id > 0
 	BEGIN
@@ -324,6 +334,25 @@ BEGIN
 
 END
 
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateOrderStatus]	
+	@Id int
+	,@CurrentStatus int	
+AS
+BEGIN
+
+	UPDATE [Order] SET
+			CurrentStatus = @CurrentStatus
+			,DateModified = GETDATE()
+	WHERE
+		Id = @Id
+
+END
 
 GO
 /****** Object:  StoredProcedure [dbo].[UpdateUser]    Script Date: 28/12/2015 22:19:04 ******/
@@ -350,6 +379,7 @@ BEGIN
 
 END
 
+GO
 /****** Object:  StoredProcedure [dbo].[DelteUser]    Script Date: 04/01/2016 23:47:00 ******/
 SET ANSI_NULLS ON
 GO

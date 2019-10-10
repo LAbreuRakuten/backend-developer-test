@@ -10,7 +10,7 @@ namespace Rakuten.Test.Web.User
 {
     public partial class Update : System.Web.UI.Page
     {
-
+        private log4net.ILog logger = log4net.LogManager.GetLogger("LogFile");
         private readonly UserService.UserSoap _userService;
         public UserService.User _user = new UserService.User();
 
@@ -51,6 +51,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.Rg.InnerText = _user.Rg;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;
@@ -70,6 +71,7 @@ namespace Rakuten.Test.Web.User
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                logger.Error(ex.Message);
             }
         }
 
@@ -113,12 +115,14 @@ namespace Rakuten.Test.Web.User
                 else
                 {
                     this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + _response.Body.UpdateUserResult.ErrorMessage + "</div>";
+                    logger.Warn(_response.Body.UpdateUserResult.ErrorMessage);
                 }
 
             }
             catch (Exception ex)
             {
                 this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
+                logger.Error(ex.Message);
             }
         }
     }
