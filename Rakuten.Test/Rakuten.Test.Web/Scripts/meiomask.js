@@ -152,6 +152,10 @@
             // and then if the 'attr' options value is 'alt', your input should look like:
             // <input type="text" name="some_name" id="some_name" alt="msk" />
             masks: {
+                //Documento Registro Geral
+                'rg': {
+                        mask: '00.000.000-00'
+                    },
                 'phone': {
                     mask: '(99) 9999-9999'
                 },

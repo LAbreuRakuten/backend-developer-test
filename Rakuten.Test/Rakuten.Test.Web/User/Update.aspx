@@ -15,6 +15,11 @@
         <label for="<%=this.LastName.ClientID %>">Sobrenome</label>
         <input type="text" class="form-control" id="LastName" runat="server" placeholder="Sobrenome" data-required="true" />
     </div>
+        <div class="form-group">
+        <label for="<%=this.LastName.ClientID %>">RG</label>
+        <input type="text" class="form-control" id="Rg" runat="server" placeholder="RG" data-required="true" />
+    </div>
+
     <div class="form-group">
         <label class="radio-inline">
             <input type="radio" name="Gender" id="Male" runat="server" value="0" checked /> Masculino
@@ -123,7 +128,7 @@
                 });
 
                 if (isValid) {
-                    __doPostBack('ctl00$MainContent$UpdateButton', '')_;
+                    __doPostBack('ctl00$MainContent$UpdateButton', '');
                 }
 
                 return false;

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using Rakuten.Test.Core.Model;
 using Rakuten.Test.Core.Business;
+using Rakuten.Test.Core.Enum;
 
 namespace Rakuten.Test.WebService
 {
@@ -64,6 +65,47 @@ namespace Rakuten.Test.WebService
             }
 
             return result;
+
+        }
+
+        [WebMethod(Description = "Orders com o campo Integrated = 0")]
+        public ServiceResult<List<Core.Model.Order>> NewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            result.Data = new List<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.GetNewOrders();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
+
+        [WebMethod(Description = "Alterar status do pedido")]
+        public void Status(int id, OrderStatus order)
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            result.Data = new List<Core.Model.Order>();
+
+            try
+            {
+                 _orderBO.ChangeOrderStatus(id, order);
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
 
         }
     }

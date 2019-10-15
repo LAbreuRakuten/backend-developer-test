@@ -5,7 +5,8 @@
     <h3>Listar Usuários</h3>
     <br />
     <p class="pull-right"><a href="<%=ResolveUrl("~/User/Insert") %>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Inserir Usuário</a></p>
-    <asp:Repeater ID="ListUsers" runat="server">    
+
+    <asp:Repeater ID="ListUsers" runat="server" DataSourceID="GetUsers">    
         <HeaderTemplate>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -32,6 +33,7 @@
             </table>
         </FooterTemplate>
     </asp:Repeater>
+    <asp:SqlDataSource ID="GetUsers" runat="server" ConnectionString="<%$ ConnectionStrings:masterConnectionString %>" SelectCommand="SELECT [FirstName], [LastName], [DocumentId], [Email], [Id] FROM [User]"></asp:SqlDataSource>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FooterContent" runat="server">
     <script type="text/javascript">

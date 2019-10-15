@@ -48,27 +48,6 @@ namespace Rakuten.Test.WebService
 
         }
 
-        [WebMethod(Description = "Retorna a listagem de todos os usuários existentes na loja")]
-        public ServiceResult<List<Core.Model.User>> GetUsers()
-        {
-            ServiceResult<List<Core.Model.User>> result = new ServiceResult<List<Core.Model.User>>();
-
-            result.Data = new List<Core.Model.User>();
-
-            try
-            {
-                result.Data = _userBO.GetAll();
-            }
-            catch (Exception ex)
-            {
-                result.HasError = true;
-                result.ErrorMessage = ex.Message;
-            }
-
-            return result;
-
-        }
-
         [WebMethod(Description = "Insere um usuário na loja")]
         public ServiceResult<Core.Model.User> AddUser(Core.Model.User user)
         {
@@ -158,27 +137,6 @@ namespace Rakuten.Test.WebService
             return result;
 
         }
-
-        [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
-        public ServiceResult<ServiceResponse> DocumentExists(string documentId)
-        {
-            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
-            
-            try
-            {
-                result.Data = new ServiceResponse();
-                result.Data.Status = _userBO.Exists(null, documentId.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
-            }
-            catch (Exception ex)
-            {
-                result.HasError = true;
-                result.ErrorMessage = ex.Message;
-            }
-
-            return result;
-
-        }
-
 
     }
 }

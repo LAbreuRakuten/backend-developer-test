@@ -58,6 +58,76 @@ namespace Rakuten.Test.Core.Business
             return _result;
         }
 
+        public List<Order> GetNewOrders()
+        {
+            List<Order> _result = new List<Order>();
+
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = "GetOrders";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var Integrated = int.Parse(dr["Integrated"].ToString());
+                        if (Integrated == 0)
+                        {
+                            _result.Add(BindDataReader(dr));
+                        }
+                        else
+                            continue;
+                        
+                    }
+
+                    dr.Close();
+                    dr.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+
+            return _result;
+        }
+
+        public void ChangeOrderStatus(int id, OrderStatus status)
+        {
+            try
+            {
+                _connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = _connection;
+                    cmd.CommandText = $"UPDATE [dbo].[Order] SET CurrentStatus = {status} WHERE Id = {id}";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open) _connection.Close();
+            }
+            
+        }
+
+
         public Order GetById(int id)
         {
             Order _result = null;
@@ -120,6 +190,7 @@ namespace Rakuten.Test.Core.Business
                 Shipping = Convert.ToDecimal(dr["Shipping"].ToString())
             };
         }
+
 
         public void Dispose()
         {

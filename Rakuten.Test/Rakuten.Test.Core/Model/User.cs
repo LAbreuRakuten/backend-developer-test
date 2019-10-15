@@ -25,6 +25,7 @@ namespace Rakuten.Test.Core.Model
         public GenderType Gender { get; set; }
 
         public string DocumentId { get; set; }
+        public string Rg { get; set; }
 
         public string Email { get; set; }
 

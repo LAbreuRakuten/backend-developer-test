@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Test.Web", "Rakuten.Test.Web\Rakuten.Test.Web.csproj", "{5959AF91-8CC8-4B69-87C7-22B910D92273}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Test.WebService", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Test.Core", "Rakuten.Test.Core\Rakuten.Test.Core.csproj", "{7591D453-990C-43B5-8DA4-F3FF75755C13}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rakuten.Test.SQL", "Rakuten.Test.SQL", "{6D82501E-2C60-4DD5-91DE-C3486A7B52C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0969D1E9-CBCD-4E89-8529-D7808FF18206}"
 	ProjectSection(SolutionItems) = preProject
 		Script.sql = Script.sql
 	EndProjectSection
@@ -38,5 +38,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD3D54AF-7E13-42DA-A920-3942BA9B2123}
 	EndGlobalSection
 EndGlobal

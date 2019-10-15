@@ -19,18 +19,7 @@ namespace Rakuten.Test.Web.User
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                UserService.GetUsersResponse _response = _userService.GetUsers(new UserService.GetUsersRequest { Body = new UserService.GetUsersRequestBody() });
-                UserService.User[] _users = _response.Body.GetUsersResult.Data;
-
-                this.ListUsers.DataSource = _users;
-                this.ListUsers.DataBind();
-            }
-            catch (Exception ex)
-            {
-                this.MessageStatus.Text = "<div class='alert alert-danger alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Listar Usuários</strong><br /> Ocorreu o seguinte problema na operação: " + ex.Message + "</div>";
-            }            
+    
         }
     }
 }

@@ -110,7 +110,10 @@ namespace Rakuten.Test.Web.UserService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DocumentIdField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RgField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
         
@@ -200,7 +203,23 @@ namespace Rakuten.Test.Web.UserService {
                 }
             }
         }
-        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 4)]
+        public string Rg
+        {
+            get
+            {
+                return this.RgField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.RgField, value) != true))
+                {
+                    this.RgField = value;
+                    this.RaisePropertyChanged("Rg");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
         public string Email {
             get {
@@ -1272,6 +1291,7 @@ namespace Rakuten.Test.Web.UserService {
             this.DocumentExistsResult = DocumentExistsResult;
         }
     }
+
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface UserSoapChannel : Rakuten.Test.Web.UserService.UserSoap, System.ServiceModel.IClientChannel {

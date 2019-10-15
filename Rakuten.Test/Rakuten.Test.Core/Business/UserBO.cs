@@ -28,12 +28,10 @@ namespace Rakuten.Test.Core.Business
 
             try
             {
-                _connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand("GetUsers",_connection))
                 {
                     cmd.Connection = _connection;
-                    cmd.CommandText = "GetUsers";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -147,11 +145,11 @@ namespace Rakuten.Test.Core.Business
 
             try
             {
-                _connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand())
-                {                    
-                    cmd.CommandText = "AddUser";
+
+                using (SqlCommand cmd = new SqlCommand("AddUser", _connection))
+                {
+                    _connection.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
@@ -160,6 +158,7 @@ namespace Rakuten.Test.Core.Business
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
+                    cmd.Parameters.AddWithValue("@Rg", model.Rg);
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -176,7 +175,7 @@ namespace Rakuten.Test.Core.Business
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(ex.Message, ex);
+                throw new ArgumentException(ex.ToString());
             }
             finally
             {
@@ -199,10 +198,11 @@ namespace Rakuten.Test.Core.Business
                     cmd.Connection = _connection;
                     cmd.CommandText = "UpdateUser";
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
+                    cmd.Parameters.AddWithValue("@Rg", model.Rg);
                   
                     _result = cmd.ExecuteNonQuery() > 0;
                 }
@@ -256,6 +256,7 @@ namespace Rakuten.Test.Core.Business
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 DocumentId = dr["DocumentId"].ToString(),
+                Rg = dr["Rg"].ToString(),
                 Email = dr["Email"].ToString(),
                 FirstName = dr["FirstName"].ToString(),
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),

@@ -51,6 +51,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.Rg.Value = _user.Rg;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;
@@ -83,6 +84,7 @@ namespace Rakuten.Test.Web.User
                     {
                         user = new UserService.User
                         {
+                            Rg = this.Rg.Value,
                             Id = Convert.ToInt32(this.Id.Value),
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
@@ -108,7 +110,7 @@ namespace Rakuten.Test.Web.User
 
                 if (!_response.Body.UpdateUserResult.HasError)
                 {
-                    this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Modificar Usuário</strong><br /> Dados modificados com sucesso!</div>";
+                    Response.Write("<script language='javascript'>alert('Dados alterados com sucesso !');location='Index.aspx'</script>");
                 }
                 else
                 {

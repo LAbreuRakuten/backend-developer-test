@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 namespace Rakuten.Test.Web.User
 {
@@ -12,10 +15,14 @@ namespace Rakuten.Test.Web.User
 
         private readonly UserService.UserSoap _userService;
 
+
+
         public Insert()
 	    {
             _userService = new UserService.UserSoapClient();
-	    }
+
+        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,6 +40,7 @@ namespace Rakuten.Test.Web.User
                     {
                         user = new UserService.User
                         {
+                            Rg = this.Rg.Value,
                             DocumentId = this.DocumentId.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
@@ -58,7 +66,7 @@ namespace Rakuten.Test.Web.User
 
                 if (!_response.Body.AddUserResult.HasError)
                 {
-                    this.MessageStatus.Text = "<div class='alert alert-success alert-dismissible fade in' role='alert'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button> <strong>Inserir Usuário</strong><br /> Dados inseridos com sucesso!</div>";
+                    Response.Write("<script language='javascript'>alert('Cadastro efetuado com sucesso !');location='Index.aspx'</script>");
                 }
                 else
                 {
