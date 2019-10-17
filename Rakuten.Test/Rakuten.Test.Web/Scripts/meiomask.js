@@ -164,6 +164,9 @@
                 'cpf': {
                     mask: '999.999.999-99'
                 }, // cadastro nacional de pessoa fisica (kind of a brazillian ssn)
+                'rg': {
+                    mask: '99.999.999-9'
+                }, // Add por Richard Felix - 16/10/2019
                 'cnpj': {
                     mask: '99.999.999/9999-99'
                 },
@@ -377,13 +380,13 @@
                 }
 
                 return this.__maskArray(str.split(''),
-                o.mask.replace(fixedCharsRegG, '').split(''),
-                o.mask.split(''),
-                o.type,
-                o.maxLength,
-                o.defaultValue,
-                fixedCharsReg,
-                o.signal);
+                    o.mask.replace(fixedCharsRegG, '').split(''),
+                    o.mask.split(''),
+                    o.type,
+                    o.maxLength,
+                    o.defaultValue,
+                    fixedCharsReg,
+                    o.signal);
             },
 
             // all the 3 events below are here just to fix the change event on reversed masks.
@@ -459,14 +462,14 @@
                 if (o.reverse) this.__changeSignal(e.type, o);
 
                 var $thisVal = this.__maskArray(
-                o.valueArray,
-                o.data.maskNonFixedCharsArray,
-                o.data.maskArray,
-                o.data.type,
-                o.data.maxLength,
-                o.data.defaultValue,
-                o.data.fixedCharsReg,
-                o.data.signal);
+                    o.valueArray,
+                    o.data.maskNonFixedCharsArray,
+                    o.data.maskArray,
+                    o.data.type,
+                    o.data.maxLength,
+                    o.data.defaultValue,
+                    o.data.fixedCharsReg,
+                    o.data.signal);
 
                 o.$this.val($thisVal);
                 // this makes the caret stay at first position when
@@ -526,7 +529,7 @@
                     return false;
                 }
 
-                    // if the new character is not obeying the law...
+                // if the new character is not obeying the law...
                 else if (!this.rules[maskArray[o.rsEp]].test(c)) {
                     o.data.onInvalid.call(o._this, c, o.nKey);
                     return false;
@@ -535,15 +538,15 @@
                 }
 
                 var $thisVal = this.__maskArray(
-                valueArray,
-                o.data.maskNonFixedCharsArray,
-                maskArray,
-                o.data.type,
-                o.data.maxLength,
-                o.data.defaultValue,
-                o.data.fixedCharsReg,
-                o.data.signal,
-                extraPos);
+                    valueArray,
+                    o.data.maskNonFixedCharsArray,
+                    maskArray,
+                    o.data.type,
+                    o.data.maxLength,
+                    o.data.defaultValue,
+                    o.data.fixedCharsReg,
+                    o.data.signal,
+                    extraPos);
 
                 if (!o.repeat) {
                     o.$this.val($thisVal);
@@ -576,9 +579,9 @@
 
             __autoTab: function (o) {
                 if (o.data.autoTab && (
-                (
-                o.$this.val().length >= o.data.maskArray.length && !o.repeat) || (
-                o.data.maxLength != -1 && o.valueArray.length >= o.data.maxLength && o.repeat))) {
+                    (
+                        o.$this.val().length >= o.data.maskArray.length && !o.repeat) || (
+                        o.data.maxLength != -1 && o.valueArray.length >= o.data.maxLength && o.repeat))) {
                     var nextEl = this.__getNextInput(o._this, o.data.autoTab);
                     if (nextEl) {
                         o.$this.trigger('blur');
@@ -745,7 +748,7 @@
                     start: 0,
                     end: 0
                 },
-                range = document.selection.createRange();
+                    range = document.selection.createRange();
                 pos.start = 0 - range.duplicate().moveStart('character', -100000);
                 pos.end = pos.start + range.text.length;
                 return pos;

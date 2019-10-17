@@ -26,6 +26,8 @@ namespace Rakuten.Test.Core.Model
 
         public string DocumentId { get; set; }
 
+        public string Rg { get; set; } // add por Richard Felix - 16/10/2019
+
         public string Email { get; set; }
 
         public string Password { get; set; }

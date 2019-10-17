@@ -21,6 +21,10 @@
         </label>
     </div>
     <div class="form-group">
+        <label for="<%=this.Rg.ClientID %>">RG</label>
+        <input type="text" class="form-control" id="Rg" runat="server" placeholder="RG" data-required="true" data-mask="rg" />
+    </div>
+    <div class="form-group">
         <label for="<%=this.DocumentId.ClientID %>">CPF</label>
         <input type="text" class="form-control" id="DocumentId" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" />
     </div>
@@ -103,24 +107,26 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FooterContent" runat="server">
     <script type="text/javascript">
-        
+
         var _emailExists = false;
+        var _documentId = false; // add por Richard Felix - 16/10/2019
+        var _rgExists = false; // add por Richard Felix - 16/10/2019
 
         $(function () {
 
-            $('#<%=this.InsertButton.ClientID%>').on('click', function () {                               
+            $('#<%=this.InsertButton.ClientID%>').on('click', function () {
 
                 var isValid = true;
 
                 $('[data-required]').each(function (i) {
-                    
+
                     $(this).parents('div.form-group').removeClass('has-error');
 
                     if ($(this).is('input')) {
                         if ($(this).val().trim().lenght == 0) {
                             isValid = false;
                             $(this).parents('div.form-group').addClass('has-error');
-                        }                            
+                        }
                     } else if ($(this).is('select')) {
                         if ($(this).find('option:selected').val().trim().length == 0) {
                             isValid = false;
@@ -140,14 +146,21 @@
                     isValid = false;
                     $('#<%=this.Email.ClientID%>').parents('div.form-group').addClass('has-error');
                 }
-                
+
+                // Begin add por Richard Felix - 16/10/19
+                if (_rgExists) {
+                    isValid = false;
+                    $('#<%=this.Rg.ClientID%>').parents('div.form-group').addClass('has-error');
+                }
+                // End add por Richard Felix - 16/10/19
+
                 if (isValid) {
                     __doPostBack('ctl00$MainContent$InsertButton', '');
                 }
 
                 return false;
-                
-            });            
+
+            });
 
             $('#<%=this.Email.ClientID%>').on('change', function (e) {
 
@@ -162,6 +175,7 @@
                         _emailExists = data.status;
 
                         if (_emailExists) {
+                            alert("E-mail já cadastrado")
                             $(root).parents('div.form-group').addClass('has-error');
                         } else {
                             $(root).parents('div.form-group').removeClass('has-error');
@@ -169,6 +183,51 @@
                     }
                 });
             });
+
+            // Begin add por Richard Felix - 16/10/2019
+            $('#<%=this.DocumentId.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Documento.ashx") %>',
+                    method: 'POST',
+                    data: { documento: $(root).val() },
+                    success: function (data) {
+
+                        _documentId = data.status;
+
+                        if (_documentId) {
+                            alert("CPF já cadastrado")
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+            });
+            $('#<%=this.Rg.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Documento.ashx") %>',
+                    method: 'POST',
+                    data: { documento: $(root).val() },
+                    success: function (data) {
+
+                        _rgExists = data.status;
+
+                        if (_rgExists) {
+                            alert("RG já cadastrado")
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+            });
+            // End add por Richard Felix - 16/10/2019
 
             $('input[data-mask]').each(function () {
                 var input = $(this);

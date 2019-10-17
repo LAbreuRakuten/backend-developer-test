@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 
 namespace Rakuten.Test.Core.Business
 {
@@ -16,10 +17,13 @@ namespace Rakuten.Test.Core.Business
     {
 
         private readonly SqlConnection _connection;
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public UserBO()
         {
             _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString);
+            log4net.Config.XmlConfigurator.Configure();
+
         }
 
         public List<User> GetAll()
@@ -49,6 +53,7 @@ namespace Rakuten.Test.Core.Business
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -94,6 +99,7 @@ namespace Rakuten.Test.Core.Business
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -125,12 +131,27 @@ namespace Rakuten.Test.Core.Business
 
                     _result = dr.HasRows;
 
+                    // Begin add por Richard Felix - 16/10/2019
+                    if (_result)
+                    {
+                        if (!string.IsNullOrEmpty(email))
+                        {
+                            log.Info("Tentativa de gravacao de e-mail ja existente. - " + email);
+                        }
+                        else
+                        {
+                            log.Info("Tentativa de gravacao de documento ja existente. - " + documentId);
+                        }
+                    }
+                    // End add por Richard Felix - 16/10/2019
+
                     dr.Close();
                     dr.Dispose();
                 }
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -150,14 +171,16 @@ namespace Rakuten.Test.Core.Business
                 _connection.Open();
 
                 using (SqlCommand cmd = new SqlCommand())
-                {                    
+                {
+                    cmd.Connection = _connection;
                     cmd.CommandText = "AddUser";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    
+
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
                     cmd.Parameters.AddWithValue("@DocumentId", model.DocumentId);
+                    cmd.Parameters.AddWithValue("@Rg", model.Rg); // add por Richard Felix - 16/10/2019
                     cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Password", Security.HashSHA1(model.Password));
 
@@ -176,6 +199,7 @@ namespace Rakuten.Test.Core.Business
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -200,15 +224,17 @@ namespace Rakuten.Test.Core.Business
                     cmd.CommandText = "UpdateUser";
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Gender", (int)model.Gender);
-                  
+
                     _result = cmd.ExecuteNonQuery() > 0;
                 }
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -240,6 +266,7 @@ namespace Rakuten.Test.Core.Business
             }
             catch (Exception ex)
             {
+                log.Error(ex.Message); // Add por Richard Felix - 16/10/2019
                 throw new ArgumentException(ex.Message, ex);
             }
             finally
@@ -252,10 +279,12 @@ namespace Rakuten.Test.Core.Business
 
         private User BindUserDataReader(SqlDataReader dr)
         {
-            return new User { 
+            return new User
+            {
                 DateCreation = Convert.ToDateTime(dr["DateCreation"].ToString()),
                 DateModified = Convert.ToDateTime(dr["DateModified"].ToString()),
                 DocumentId = dr["DocumentId"].ToString(),
+                Rg = dr["Rg"].ToString(), // add por Richard Felix - 16/10/2019
                 Email = dr["Email"].ToString(),
                 FirstName = dr["FirstName"].ToString(),
                 Gender = (GenderType)Convert.ToInt16(dr["Gender"].ToString()),

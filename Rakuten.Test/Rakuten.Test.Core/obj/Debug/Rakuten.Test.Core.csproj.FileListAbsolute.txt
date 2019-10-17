@@ -25,3 +25,13 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Ne
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.dll
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Rakuten.Test.Core.pdb
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csprojAssemblyReference.cache
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.csproj.CopyComplete
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.dll
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\obj\Debug\Rakuten.Test.Core.pdb
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\log4net.dll
+C:\Users\rich_\Documents\backend-developer-test\Rakuten.Test\Rakuten.Test.Core\bin\Debug\log4net.xml

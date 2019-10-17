@@ -101,7 +101,7 @@ namespace Rakuten.Test.WebService
             ServiceResult<Core.Model.User> result = new ServiceResult<Core.Model.User>();
 
             try
-            {                
+            {
                 var address = user.Addresses.FirstOrDefault();
 
                 _userBO.Update(user);
@@ -159,11 +159,12 @@ namespace Rakuten.Test.WebService
 
         }
 
+
         [WebMethod(Description = "Verifica se o CPF existe na base da loja")]
         public ServiceResult<ServiceResponse> DocumentExists(string documentId)
         {
             ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
-            
+
             try
             {
                 result.Data = new ServiceResponse();

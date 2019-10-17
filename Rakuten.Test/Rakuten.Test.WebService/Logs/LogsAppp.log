@@ -1,0 +1,6 @@
+2019-10-16 23:53:25,307 [6] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de documento ja existente. - 40.764.440-4
+2019-10-16 23:53:58,401 [6] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de documento ja existente. - 433.268.338-22
+2019-10-16 23:54:10,974 [7] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de e-mail ja existente. - rich.de.felix@gmail.com
+2019-10-17 01:01:01,007 [6] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de e-mail ja existente. - teste@teste.com
+2019-10-17 01:01:07,337 [6] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de documento ja existente. - 49.233.243-2
+2019-10-17 01:01:11,477 [7] INFO  Rakuten.Test.Core.Business.UserBO Tentativa de gravacao de documento ja existente. - 224.442.344-32

@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[Rg] [varchar](30) NOT NULL, -- Add por Richard Felix - 16/10/2019
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -101,36 +102,43 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_User] ON [dbo].[User]
 	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
-SET ANSI_PADDING ON
 
+SET ANSI_PADDING ON
 GO
+
 /****** Object:  Index [IX_User_1]    Script Date: 28/12/2015 22:19:04 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_User_1] ON [dbo].[User]
 (
 	[DocumentId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+
 ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
+
 ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_User]
 GO
+
 ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
+
 ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_User]
 GO
+
 /****** Object:  StoredProcedure [dbo].[AddAddress]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -143,7 +151,6 @@ CRATE PROCEDURE [dbo].[AddAddress]
 	,@Cellphone varchar(25)
 AS
 BEGIN
-
 	INSERT INTO [Address]	
 			(UserId
 			,[Type]
@@ -169,36 +176,35 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
-
+			,GETDATE())
 	UPDATE [User] 
 		SET [Integrated] = 0 
 		WHERE Id = @UserId
-
 END
-
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[AddUser]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE PROCEDURE [dbo].[AddUser]	
 	@FirstName varchar(100)
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@Rg varchar(30) -- add por Richard Felix - 16/10/2019
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
 BEGIN
-
 	INSERT INTO [User]	
 			(FirstName
 			,LastName
 			,Gender
 			,DocumentId
+			,Rg -- add por Richard Felix - 16/10/2019
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,17 +215,16 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@Rg -- add por Richard Felix - 16/10/2019
 				,@Email
 				,@Password
 				,0
 				,GETDATE()
 				,GETDATE())
-
 	SELECT SCOPE_IDENTITY() AS 'Id'
-
 END
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[GetAddresses]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -230,47 +235,44 @@ CREATE PROCEDURE [dbo].[GetAddresses]
 	@Id int = 0
 AS
 BEGIN
-
 	SELECT * 
 		FROM [Address] 
 		WHERE @Id = 0 OR Id = @Id
-
 END
-
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[GetOrders]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE PROCEDURE [dbo].[GetOrders]	
 	@Id int = 0
 AS
 BEGIN
-
 	SELECT * 
 		FROM [Order] 
 		WHERE @Id = 0 OR Id = @Id
-
 END
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE PROCEDURE [dbo].[GetUsers]	
 	@Id int = 0,
 	@Email varchar(150) = NULL,
 	@DocumentId varchar(30) = NULL
 AS
 BEGIN
-
 	SELECT * 
 		FROM [User] 
-		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email)
+		-- Alterado por Richard Felix - 16/10/2019 - Inclusao da validacao do RG
+		WHERE	(@Id = 0 OR Id = @Id) AND ((@DocumentId IS NULL OR DocumentId = @DocumentId) OR (@DocumentId IS NULL OR Rg = @DocumentId)) AND (@Email IS NULL OR Email = @Email)
 
 	IF @Id > 0
 	BEGIN
@@ -278,10 +280,9 @@ BEGIN
 			FROM [Address] 
 			WHERE UserId = @Id	
 	END
-
 END
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[UpdateAddress]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -302,7 +303,6 @@ CREATE PROCEDURE [dbo].[UpdateAddress]
 	,@Cellphone varchar(25)
 AS
 BEGIN
-
 	UPDATE [Address] 
 		SET
 			[Type] = @Type
@@ -317,20 +317,18 @@ BEGIN
 			,DateModified = GETDATE()
 		WHERE
 			Id = @Id
-
 	UPDATE [User] 
 		SET [Integrated] = 0 
 		WHERE Id = @UserId
-
 END
-
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[UpdateUser]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE PROCEDURE [dbo].[UpdateUser]	
 	@Id int
 	,@FirstName varchar(100)
@@ -338,7 +336,6 @@ CREATE PROCEDURE [dbo].[UpdateUser]
 	,@Gender int
 AS
 BEGIN
-
 	UPDATE [User] SET
 			FirstName = @FirstName
 			,LastName = @LastName
@@ -347,19 +344,42 @@ BEGIN
 			,DateModified = GETDATE()
 	WHERE
 		Id = @Id
-
 END
+GO
 
 /****** Object:  StoredProcedure [dbo].[DelteUser]    Script Date: 04/01/2016 23:47:00 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE PROCEDURE [dbo].[DeleteUser]	
 	@Id int
 AS
 BEGIN
-
-	DELETE FROM [User] WHERE Id = @Id 			
-
+	DELETE FROM [User] WHERE Id = @Id
 END
+GO
+
+-- Inicio add por Richard Felix - 16/10/2019
+CREATE PROCEDURE [dbo].[GetNewOrders]	
+	@Id int = 0
+AS
+BEGIN
+	SELECT * 
+		FROM [Order] 
+		WHERE (@Id = 0 OR Id = @Id) AND Integrated = 0
+END
+GO
+
+CREATE PROCEDURE [dbo].[ChangeOrderStatus]	
+	@Id int,
+	@Status int
+AS
+BEGIN
+	UPDATE [Order] SET
+			CurrentStatus = @Status
+	WHERE
+		Id = @Id
+END
+GO

@@ -23,6 +23,12 @@
             <input type="radio" name="Gender" id="Female" runat="server" value="1" /> Feminino
         </label>
     </div>
+    <!-- Begin add por Richard Felix - 16/10/2019 -->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">RG</label>
+        <p class="form-control-static" id="Rg" runat="server"></p>
+    </div>
+    <!-- End add por Richard Felix - 16/10/2019 -->
     <div class="form-group">
         <label class="col-sm-2 control-label">CPF</label>
         <p class="form-control-static" id="DocumentId" runat="server"></p>
@@ -101,18 +107,18 @@
         $(function () {
 
             $('#<%=this.UpdateButton.ClientID%>').on('click', function () {
-                
+
                 var isValid = true;
 
                 $('[data-required]').each(function (i) {
-                    
+
                     $(this).parents('div.form-group').removeClass('has-error');
 
                     if ($(this).is('input')) {
                         if ($(this).val().trim().length == 0) {
                             isValid = false;
                             $(this).parents('div.form-group').addClass('has-error');
-                        }                            
+                        }
                     } else if ($(this).is('select')) {
                         if ($(this).find('option:selected').val().trim().length == 0) {
                             isValid = false;
@@ -127,7 +133,7 @@
                 }
 
                 return false;
-                
+
             });
 
             $('input[data-mask]').each(function () {

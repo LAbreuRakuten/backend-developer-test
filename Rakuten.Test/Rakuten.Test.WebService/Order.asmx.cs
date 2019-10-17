@@ -66,5 +66,49 @@ namespace Rakuten.Test.WebService
             return result;
 
         }
+
+        // Begin add por Richard Felix - 16/10/2019
+
+        [WebMethod(Description = "Exibe apenas os pedidos que não estão marcados como integrados")]
+        public ServiceResult<List<Core.Model.Order>> GetNewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            result.Data = new List<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.GetNew();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
+
+        [WebMethod(Description = "Altera o status de um determinado pedido da loja")]
+        public ServiceResult<Core.Model.Order> ChangeOrderStatus(int id, int status)
+        {
+            ServiceResult<Core.Model.Order> result = new ServiceResult<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.ChangeOrderStatus(id, status);
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
+
+        // End add por Richard Felix - 16/10/2019
     }
 }

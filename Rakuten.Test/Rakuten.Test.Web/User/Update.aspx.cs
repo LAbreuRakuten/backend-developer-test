@@ -50,6 +50,7 @@ namespace Rakuten.Test.Web.User
                         this.City.Value = _addressData.City;
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
+                        this.Rg.InnerText = _user.Rg; // Add por Richard Felix - 16/10/2019
                         this.DocumentId.InnerText = _user.DocumentId;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
@@ -64,7 +65,7 @@ namespace Rakuten.Test.Web.User
                     {
                         Response.Redirect("~/");
                     }
-                   
+
                 }
             }
             catch (Exception ex)
@@ -87,12 +88,12 @@ namespace Rakuten.Test.Web.User
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,
                             Gender = this.Male.Checked ? (UserService.GenderType)Convert.ToInt32(this.Male.Value) : (UserService.GenderType)Convert.ToUInt32(this.Female.Value),
-                            Addresses = new UserService.AddressData[1] { 
-                                new UserService.AddressData { 
+                            Addresses = new UserService.AddressData[1] {
+                                new UserService.AddressData {
                                     Id = Convert.ToInt32(this.AddressId.Value),
                                     UserId = Convert.ToInt32(this.Id.Value),
-                                    Address = this.Address.Value, 
-                                    Cellphone = this.Cellphone.Value, 
+                                    Address = this.Address.Value,
+                                    Cellphone = this.Cellphone.Value,
                                     City = this.City.Value,
                                     Country = this.Country.Value,
                                     District = this.District.Value,
@@ -100,7 +101,7 @@ namespace Rakuten.Test.Web.User
                                     State = this.State.Value,
                                     Type = (UserService.AddressType)Convert.ToInt32(this.AddressType.Value),
                                     ZipCode = this.ZipCode.Value
-                                } 
+                                }
                             }
                         }
                     }
