@@ -7,7 +7,7 @@ using System.Web;
 namespace Rakuten.Test.Web
 {
     /// <summary>
-    /// Summary description for Email
+    /// Summary description for DocumentID
     /// </summary>
     public class DocumentId : IHttpHandler
     {
@@ -29,10 +29,15 @@ namespace Rakuten.Test.Web
             {
                 var _exists = _userService.DocumentExists(new UserService.DocumentExistsRequest { Body = new UserService.DocumentExistsRequestBody { documentId = context.Request["documentId"] } });
                 result = _exists.Body.DocumentExistsResult.Data.Status == UserService.ServiceResponseStatus.Yes;
+                if (result)
+                {                //Salva no arquivo txt
+                    Log.Save("Documento já está cadastrado no banco de dados");
+                }
             }
             catch
             {
                 result = false;
+
             }
 
             context.Response.Write(JsonConvert.SerializeObject(new { status = result }));

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Insert.aspx.cs" Inherits="Rakuten.Test.Web.User.Insert" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <asp:Literal ID="MessageStatus" runat="server"></asp:Literal>
@@ -14,19 +15,21 @@
     </div>
     <div class="form-group">
         <label class="radio-inline">
-            <input type="radio" name="Gender" id="Male" runat="server" value="0" checked /> Masculino
-        </label>    
+            <input type="radio" name="Gender" id="Male" runat="server" value="0" checked />
+            Masculino
+        </label>
         <label class="radio-inline">
-            <input type="radio" name="Gender" id="Female" runat="server" value="1" /> Feminino
+            <input type="radio" name="Gender" id="Female" runat="server" value="1" />
+            Feminino
         </label>
     </div>
     <div class="form-group">
         <label for="<%=this.DocumentId.ClientID %>">CPF</label>
         <input type="text" class="form-control" id="DocumentId" runat="server" placeholder="CPF" data-required="true" data-mask="cpf" aria-checked="undefined" />
     </div>
-        <div class="form-group">
+    <div class="form-group">
         <label for="<%=this.Rg.ClientID %>">RG</label>
-        <input type="text" class="form-control" id="Rg" runat="server" placeholder="RG" data-required="true"  />
+        <input type="text" class="form-control" id="Rg" runat="server" placeholder="RG" data-required="true" />
     </div>
     <div class="form-group">
         <label for="<%=this.Email.ClientID %>">Email</label>
@@ -72,7 +75,7 @@
             <option value="CE">Ceará</option>
             <option value="DF">Distrito Federal</option>
             <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>            
+            <option value="GO">Goiás</option>
             <option value="MA">Maranhão</option>
             <option value="MT">Mato Grosso</option>
             <option value="MS">Mato Grosso do Sul</option>
@@ -81,14 +84,14 @@
             <option value="PB">Paraíba</option>
             <option value="PR">Paraná</option>
             <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>            
-            <option value="RJ">Rio de Janeiro</option>            
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
             <option value="RN">Rio Grande do Norte</option>
             <option value="RS">Rio Grande do Sul</option>
             <option value="RO">Rondônia</option>
             <option value="RR">Roraima</option>
             <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>                        
+            <option value="SP">São Paulo</option>
             <option value="SE">Sergipe</option>
             <option value="TO">Tocantins</option>
         </select>
@@ -101,30 +104,32 @@
         <label for="<%=this.Cellphone.ClientID %>">Celular</label>
         <input type="text" class="form-control" id="Cellphone" runat="server" placeholder="Celular" data-mask="cellphone" />
     </div>
-    
+
     <asp:LinkButton ID="InsertButton" runat="server" CssClass="btn btn-default" Text="Inserir" OnClick="InsertButton_Click"></asp:LinkButton>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FooterContent" runat="server">
     <script type="text/javascript">
-        
+
         var _emailExists = false;
+        var _documentIdExists = false;
+        var _RgExists = false;
 
         $(function () {
 
-            $('#<%=this.InsertButton.ClientID%>').on('click', function () {                               
+            $('#<%=this.InsertButton.ClientID%>').on('click', function () {
 
                 var isValid = true;
 
                 $('[data-required]').each(function (i) {
-                    
+
                     $(this).parents('div.form-group').removeClass('has-error');
 
                     if ($(this).is('input')) {
                         if ($(this).val().trim().lenght == 0) {
                             isValid = false;
                             $(this).parents('div.form-group').addClass('has-error');
-                        }                            
+                        }
                     } else if ($(this).is('select')) {
                         if ($(this).find('option:selected').val().trim().length == 0) {
                             isValid = false;
@@ -144,15 +149,61 @@
                     isValid = false;
                     $('#<%=this.Email.ClientID%>').parents('div.form-group').addClass('has-error');
                 }
-                
+
                 if (isValid) {
                     __doPostBack('ctl00$MainContent$InsertButton', '');
                 }
 
-                return false;
-                
-            });            
+                if (_documentIdExists) {
+                    isValid = false;
+                    $('#<%=this.DocumentId.ClientID%>').parents('div.form-group').addClass('has-error');
+                }
 
+                if (isValid) {
+                    __doPostBack('ctl00$MainContent$InsertButton', '');
+                }
+
+                if (_RgExists) {
+                    isValid = false;
+                    $('#<%=this.Rg.ClientID%>').parents('div.form-group').addClass('has-error');
+
+                }
+                return false;
+
+            });
+
+
+            //verificando cpf
+
+            $('#<%=this.DocumentId.ClientID%>').on('change', function (e) {
+
+                var root = this;
+
+                $.ajax({
+                    url: '<%=ResolveUrl("~/DocumentId.ashx") %>',
+                    method: 'POST',
+                    data: { _documentIdExists: $(root).val() },
+                    success: function (data) {
+
+                        _documentIdExists = data.status;
+
+                        if (_documentIdExists) {
+                            $(root).parents('div.form-group').addClass('has-error');
+                        } else {
+                            $(root).parents('div.form-group').removeClass('has-error');
+                        }
+                    }
+                });
+
+
+            });
+
+            $('input[data-mask]').each(function () {
+                var input = $(this);
+                input.setMask(input.data('mask'));
+            });
+
+            //Verificando email
             $('#<%=this.Email.ClientID%>').on('change', function (e) {
 
                 var root = this;
@@ -172,6 +223,8 @@
                         }
                     }
                 });
+
+
             });
 
             $('input[data-mask]').each(function () {

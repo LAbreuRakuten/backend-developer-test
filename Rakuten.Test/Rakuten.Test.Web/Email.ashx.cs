@@ -29,10 +29,17 @@ namespace Rakuten.Test.Web
             {
                 var _exists = _userService.EmailExists(new UserService.EmailExistsRequest { Body = new UserService.EmailExistsRequestBody { email = context.Request["email"] } });
                 result = _exists.Body.EmailExistsResult.Data.Status == UserService.ServiceResponseStatus.Yes;
+
+                if (result == true)
+                {
+                    //Salva no arquivo txt
+                    Log.Save("Email já está cadastrado no banco de dados");
+                }
             }
             catch
             {
                 result = false;
+
             }
 
             context.Response.Write(JsonConvert.SerializeObject(new { status = result }));

@@ -1,0 +1,100 @@
+#############################################################
+Data:20191017-10:29:58
+URL:http://localhost:50164/Email.ashx
+Email já está cadastrado no banco de dados
+
+#############################################################
+Data:20191017-10:31:50
+URL:http://localhost:50164/Email.ashx
+Email já está cadastrado no banco de dados
+
+#############################################################
+Data:20191017-10:31:57
+URL:http://localhost:50164/DocumentId.ashx
+Código:500
+Mensagem:System.Web.HttpException (0x80004005): Diretiva 'WebService' é desconhecida.
+   em System.Web.UI.SimpleWebHandlerParser.ProcessDirective(String directiveName, IDictionary directive)
+   em System.Web.UI.SimpleWebHandlerParser.ParseString(String text)
+   em System.Web.UI.SimpleWebHandlerParser.ParseReader()
+
+#############################################################
+Data:20191017-10:34:44
+URL:http://localhost:50164/Email.ashx
+Email já está cadastrado no banco de dados
+
+#############################################################
+Data:20191017-10:34:50
+URL:http://localhost:50164/DocumentId.ashx
+Código:500
+Mensagem:System.Web.HttpException (0x80004005): Diretiva 'WebService' é desconhecida.
+   em System.Web.UI.SimpleWebHandlerParser.ProcessDirective(String directiveName, IDictionary directive)
+   em System.Web.UI.SimpleWebHandlerParser.ParseString(String text)
+   em System.Web.UI.SimpleWebHandlerParser.ParseReader()
+
+#############################################################
+Data:20191017-10:54:06
+URL:http://localhost:50164/DocumentId.ashx
+Código:500
+Mensagem:System.Web.HttpException (0x80004005): Diretiva 'WebService' é desconhecida.
+   em System.Web.UI.SimpleWebHandlerParser.ProcessDirective(String directiveName, IDictionary directive)
+   em System.Web.UI.SimpleWebHandlerParser.ParseString(String text)
+   em System.Web.UI.SimpleWebHandlerParser.ParseReader()
+
+#############################################################
+Data:20191017-11:36:10
+URL:http://localhost:50164/DocumentoId.ashx/Email.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:36:17
+URL:http://localhost:50164/Email.ashx
+Email já está cadastrado no banco de dados
+
+#############################################################
+Data:20191017-11:39:52
+URL:http://localhost:50164/User/DocumentoId.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:40:25
+URL:http://localhost:50164/User/DocumentoId.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:41:35
+URL:http://localhost:50164/documentoid.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:42:57
+URL:http://localhost:50164/DocumentId.ashx
+Código:500
+Mensagem:System.Web.HttpException (0x80004005): Diretiva 'WebService' é desconhecida.
+   em System.Web.UI.SimpleWebHandlerParser.ProcessDirective(String directiveName, IDictionary directive)
+   em System.Web.UI.SimpleWebHandlerParser.ParseString(String text)
+   em System.Web.UI.SimpleWebHandlerParser.ParseReader()
+
+#############################################################
+Data:20191017-11:46:38
+URL:http://localhost:50164/DocumentoId.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:48:05
+URL:http://localhost:50164/DocumentoId1.ashx
+URL não encontrada
+
+#############################################################
+Data:20191017-11:51:27
+URL:http://localhost:50164/Email.ashx
+Email já está cadastrado no banco de dados
+
+#############################################################
+Data:20191017-11:59:09
+URL:http://localhost:50164/DocumentId.ashx
+Código:500
+Mensagem:System.Web.HttpException (0x80004005): Diretiva 'WebService' é desconhecida.
+   em System.Web.UI.SimpleWebHandlerParser.ProcessDirective(String directiveName, IDictionary directive)
+   em System.Web.UI.SimpleWebHandlerParser.ParseString(String text)
+   em System.Web.UI.SimpleWebHandlerParser.ParseReader()
+

@@ -1,5 +1,88 @@
 ﻿
 /****** Object:  Table [dbo].[Address]    Script Date: 28/12/2015 22:19:04 ******/
+
+/****** Criando banco de dados ******/
+CREATE DATABASE master
+USE master
+
+/******Criando tabela Rg ******/
+alter table [dbo].[user] add Rg varchar (30)
+
+
+/******Adicionando nas procedures******/
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[AddUser]	
+	@FirstName varchar(100)
+	,@LastName varchar(150)
+	,@Gender int
+	,@DocumentId varchar(30)
+	,@Email varchar(150)
+	,@Password varchar(50)
+	,@Rg varchar(30)
+AS
+BEGIN
+
+	INSERT INTO [User]	
+			(FirstName
+			,LastName
+			,Gender
+			,DocumentId
+			,Email
+			,[Password]
+			,[Integrated]
+			,DateCreation
+			,DateModified
+			,Rg)
+			VALUES		
+				(@FirstName
+				,@LastName
+				,@Gender
+				,@DocumentId
+				,@Email
+				,@Password
+				,0
+				,GETDATE()
+				,GETDATE()
+				,@Rg)
+
+	SELECT SCOPE_IDENTITY() AS 'Id'
+
+END
+
+GO
+
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateUser]	
+	@Id int
+	,@FirstName varchar(100)
+	,@LastName varchar(150)
+	,@Gender int
+	,@Rg varchar(30)
+AS
+BEGIN
+
+	UPDATE [User] SET
+			FirstName = @FirstName
+			,LastName = @LastName
+			,Gender = @Gender
+			,[Integrated] = 0
+			,DateModified = GETDATE()
+			,Rg = @Rg
+
+	WHERE
+		Id = @Id
+
+END
+
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
