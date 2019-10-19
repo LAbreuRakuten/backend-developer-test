@@ -10,7 +10,7 @@ namespace Rakuten.Test.Web.User
     public partial class Index : System.Web.UI.Page
     {
 
-        private readonly UserService.UserSoap _userService;
+        private readonly UserService.UserSoap _userService = new UserService.UserSoapClient();
 
         public Index()
         {

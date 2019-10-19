@@ -34,6 +34,7 @@ namespace Rakuten.Test.Web.User
                         user = new UserService.User
                         {
                             DocumentId = this.DocumentId.Value,
+                            Rg = this.Rg.Value,
                             Email = this.Email.Value,
                             FirstName = this.FirstName.Value,
                             LastName = this.LastName.Value,

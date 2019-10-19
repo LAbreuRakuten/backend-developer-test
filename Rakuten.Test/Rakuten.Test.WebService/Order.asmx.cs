@@ -66,5 +66,26 @@ namespace Rakuten.Test.WebService
             return result;
 
         }
+
+        [WebMethod(Description = "Retorna a listagem de todos os pedidos que não estão marcados como integrados")]
+        public ServiceResult<List<Core.Model.Order>> GetNewOrders()
+        {
+            ServiceResult<List<Core.Model.Order>> result = new ServiceResult<List<Core.Model.Order>>();
+
+            result.Data = new List<Core.Model.Order>();
+
+            try
+            {
+                result.Data = _orderBO.GetNewOrders();
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
     }
 }

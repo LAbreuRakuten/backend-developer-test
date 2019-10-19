@@ -51,6 +51,7 @@ namespace Rakuten.Test.Web.User
                         this.Country.Value = _addressData.Country;
                         this.District.Value = _addressData.District;
                         this.DocumentId.InnerText = _user.DocumentId;
+                        this.Rg.InnerText = _user.Rg;
                         this.Email.InnerText = _user.Email;
                         this.Female.Checked = _user.Gender == UserService.GenderType.Female;
                         this.FirstName.Value = _user.FirstName;

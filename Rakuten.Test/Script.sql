@@ -29,6 +29,7 @@ CREATE TABLE [dbo].[Address](
 GO
 SET ANSI_PADDING OFF
 GO
+
 /****** Object:  Table [dbo].[Order]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -52,7 +53,7 @@ CREATE TABLE [dbo].[Order](
 	[Amount] [decimal](10, 2) NOT NULL,
 	[Shipping] [decimal](10, 2) NOT NULL,
 	[CurrentStatus] [int] NOT NULL,
-	[Integrated] [bit] NOT NULL
+	[Integrated] [bit] NOT NULL,
 	[DateCreation] [datetime] NOT NULL,
 	[DateModified] [datetime] NOT NULL,
 	[AddressType] [int] NOT NULL,
@@ -65,6 +66,7 @@ CREATE TABLE [dbo].[Order](
 GO
 SET ANSI_PADDING OFF
 GO
+
 /****** Object:  Table [dbo].[User]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -78,6 +80,7 @@ CREATE TABLE [dbo].[User](
 	[LastName] [varchar](150) NOT NULL,
 	[Gender] [int] NOT NULL,
 	[DocumentId] [varchar](30) NOT NULL,
+	[Rg] [varchar](30) NOT NULL,
 	[Email] [varchar](150) NOT NULL,
 	[Password] [varchar](50) NOT NULL,
 	[Integrated] [bit] NOT NULL,
@@ -95,6 +98,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
+
 /****** Object:  Index [IX_User]    Script Date: 28/12/2015 22:19:04 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_User] ON [dbo].[User]
 (
@@ -104,6 +108,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
+
 /****** Object:  Index [IX_User_1]    Script Date: 28/12/2015 22:19:04 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_User_1] ON [dbo].[User]
 (
@@ -117,6 +122,7 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_User]
 GO
+
 ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 ON UPDATE CASCADE
@@ -124,13 +130,14 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_User]
 GO
+
 /****** Object:  StoredProcedure [dbo].[AddAddress]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CRATE PROCEDURE [dbo].[AddAddress]	
+CREATE PROCEDURE [dbo].[AddAddress]	
 	@UserId int
 	,@Type int
 	,@ZipCode varchar(20)
@@ -169,7 +176,7 @@ BEGIN
 			,@PhoneNumber
 			,@Cellphone
 			,GETDATE()
-			,GETDATA())
+			,GETDATE())
 
 	UPDATE [User] 
 		SET [Integrated] = 0 
@@ -177,8 +184,8 @@ BEGIN
 
 END
 
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[AddUser]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -189,6 +196,7 @@ CREATE PROCEDURE [dbo].[AddUser]
 	,@LastName varchar(150)
 	,@Gender int
 	,@DocumentId varchar(30)
+	,@Rg varchar(30)
 	,@Email varchar(150)
 	,@Password varchar(50)
 AS
@@ -199,6 +207,7 @@ BEGIN
 			,LastName
 			,Gender
 			,DocumentId
+			,Rg
 			,Email
 			,[Password]
 			,[Integrated]
@@ -209,6 +218,7 @@ BEGIN
 				,@LastName
 				,@Gender
 				,@DocumentId
+				,@Rg
 				,@Email
 				,@Password
 				,0
@@ -220,6 +230,7 @@ BEGIN
 END
 
 GO
+
 /****** Object:  StoredProcedure [dbo].[GetAddresses]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -237,8 +248,8 @@ BEGIN
 
 END
 
-
 GO
+
 /****** Object:  StoredProcedure [dbo].[GetOrders]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -256,6 +267,44 @@ BEGIN
 END
 
 GO
+
+/****** Object:  StoredProcedure [dbo].[GetNewOrders]    Script Date: 18/10/2019 20:01:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetNewOrders]	
+	
+AS
+BEGIN
+
+	SELECT * 
+		FROM [Order] 
+		WHERE Integrated = 0
+
+END
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[UpdateOrderStatus]    Script Date: 18/10/2019 20:01:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateOrderStatus]	
+	@Id int,
+	@CurrentStatus int
+AS
+BEGIN
+
+	UPDATE [Order] 
+	   SET CurrentStatus = @CurrentStatus
+     WHERE Id = @Id
+
+END
+
+GO
+
 /****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -264,13 +313,14 @@ GO
 CREATE PROCEDURE [dbo].[GetUsers]	
 	@Id int = 0,
 	@Email varchar(150) = NULL,
-	@DocumentId varchar(30) = NULL
+	@DocumentId varchar(30) = NULL,
+	@Rg varchar(30) = NULL
 AS
 BEGIN
 
 	SELECT * 
 		FROM [User] 
-		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email)
+		WHERE	(@Id = 0 OR Id = @Id) AND (@DocumentId IS NULL OR DocumentId = @DocumentId) AND (@Email IS NULL OR Email = @Email) AND (@Rg IS NULL OR Rg = @Rg)
 
 	IF @Id > 0
 	BEGIN
@@ -282,6 +332,7 @@ BEGIN
 END
 
 GO
+
 /****** Object:  StoredProcedure [dbo].[UpdateAddress]    Script Date: 28/12/2015 22:19:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -305,7 +356,7 @@ BEGIN
 
 	UPDATE [Address] 
 		SET
-			[Type] = @Type
+			 [Type] = @Type
 			,ZipCode = @ZipCode
 			,[Address] = @Address
 			,District = @District

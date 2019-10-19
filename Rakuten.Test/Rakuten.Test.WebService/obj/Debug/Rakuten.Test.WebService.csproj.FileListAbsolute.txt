@@ -27,3 +27,14 @@ C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\bin\Ra
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojResolveAssemblyReference.cache
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
 C:\Users\leandro.abreu\Desktop\Prova\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll.config
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.dll
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.WebService.pdb
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.dll
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.pdb
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\bin\Rakuten.Test.Core.dll.config
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csprojAssemblyReference.cache
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CoreCompileInputs.cache
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.csproj.CopyComplete
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.dll
+D:\Desenvolvimento\workspace-teste\backend-developer-test\Rakuten.Test\Rakuten.Test.WebService\obj\Debug\Rakuten.Test.WebService.pdb

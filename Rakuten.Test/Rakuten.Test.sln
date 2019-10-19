@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Test.Web", "Rakuten.Test.Web\Rakuten.Test.Web.csproj", "{5959AF91-8CC8-4B69-87C7-22B910D92273}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9B57063C-3FD3-4C7E-AB71-8E1F64046EE5} = {9B57063C-3FD3-4C7E-AB71-8E1F64046EE5}
+		{7591D453-990C-43B5-8DA4-F3FF75755C13} = {7591D453-990C-43B5-8DA4-F3FF75755C13}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Test.WebService", "Rakuten.Test.WebService\Rakuten.Test.WebService.csproj", "{9B57063C-3FD3-4C7E-AB71-8E1F64046EE5}"
@@ -38,5 +39,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F1698BF-B5C3-4D63-8EE0-98A9DC30F579}
 	EndGlobalSection
 EndGlobal

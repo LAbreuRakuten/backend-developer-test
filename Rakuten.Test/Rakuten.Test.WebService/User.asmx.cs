@@ -179,6 +179,25 @@ namespace Rakuten.Test.WebService
 
         }
 
+        [WebMethod(Description = "Verifica se o Rg existe na base da loja")]
+        public ServiceResult<ServiceResponse> RgExists(string rg)
+        {
+            ServiceResult<ServiceResponse> result = new ServiceResult<ServiceResponse>();
+
+            try
+            {
+                result.Data = new ServiceResponse();
+                result.Data.Status = _userBO.Exists(null, null, rg.Trim()) ? ServiceResponseStatus.Yes : ServiceResponseStatus.No;
+            }
+            catch (Exception ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+
+        }
 
     }
 }
